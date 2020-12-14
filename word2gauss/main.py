@@ -55,7 +55,7 @@ embed = GaussianEmbedding(num_tokens, 100,
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
 # gzip file for example
-with GzipFile(filename, 'r') as corpus:
+with open(filename, 'r') as corpus:
     embed.train(iter_pairs(corpus, vocab), n_workers=8)
 
 # save the model for later
