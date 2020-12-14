@@ -8,7 +8,7 @@ from embeddings import GaussianEmbedding #, iter_pairs
 from words import Vocabulary, iter_pairs
 
 
-filename = 'christmas_carol.txt'
+filename = 'christmas_carol_short.txt'
 
 
 
@@ -55,7 +55,11 @@ embed = GaussianEmbedding(num_tokens, 100,
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
 # gzip file for example
+
+
+
 with open(filename, 'r') as corpus:
+    print(iter_pairs(corpus, vocab))
     embed.train(iter_pairs(corpus, vocab), n_workers=8)
 
 # save the model for later
