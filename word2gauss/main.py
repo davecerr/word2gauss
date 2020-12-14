@@ -22,6 +22,7 @@ with open('christmas_carol.txt', 'r') as file:
 #print(data)
 
 entity_2_idx = defaultdict(lambda: len(entity_2_idx))
+num_tokens = len(entity_2_idx)
 counter = Counter()
 dataset = []
 
@@ -43,7 +44,7 @@ vocab = Vocabulary(entity_2_idx,tokenizer)
 print(vocab)
 # create the embedding to train
 # use 100 dimensional spherical Gaussian with KL-divergence as energy function
-embed = GaussianEmbedding(len(vocab), 100,
+embed = GaussianEmbedding(num_tokens, 100,
     covariance_type='spherical', energy_type='KL')
 
 # open the corpus and train with 8 threads
