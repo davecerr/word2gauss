@@ -8,7 +8,7 @@ from embeddings import GaussianEmbedding #, iter_pairs
 from words import Vocabulary, iter_pairs
 
 
-filename = 'christmas_carol_short.txt'
+filename = 'christmas_carol.txt'
 
 
 
