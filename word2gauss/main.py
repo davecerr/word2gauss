@@ -7,6 +7,11 @@ from tqdm import tqdm
 from embeddings import GaussianEmbedding #, iter_pairs
 from words import Vocabulary, iter_pairs
 
+
+filename = 'christmas_carol.txt'
+
+
+
 def tokenizer(s):
     '''
     Whitespace tokenizer
@@ -16,7 +21,7 @@ def tokenizer(s):
 
 
 #### NEW ####
-with open('christmas_carol.txt', 'r') as file:
+with open(filename, 'r') as file:
     data = tokenizer(file.read().replace('\n', ' '))
 
 #print(data)
@@ -50,7 +55,7 @@ embed = GaussianEmbedding(num_tokens, 100,
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
 # gzip file for example
-with GzipFile('location_of_corpus', 'r') as corpus:
+with GzipFile(filename, 'r') as corpus:
     embed.train(iter_pairs(corpus, vocab), n_workers=8)
 
 # save the model for later
