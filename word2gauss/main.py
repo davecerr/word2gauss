@@ -50,14 +50,14 @@ print("num_tokens = {}".format(num_tokens))
 
 # load the vocabulary
 vocab = Vocabulary(entity_2_idx,tokenizer)
-print(vocab)
+# print(vocab)
 # create the embedding to train
 # use 100 dimensional spherical Gaussian with KL-divergence as energy function
 embed = GaussianEmbedding(num_tokens, 100,
     covariance_type='spherical', energy_type='KL')
 
 
-print(embed.mu)
+# print(embed.mu)
 
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
