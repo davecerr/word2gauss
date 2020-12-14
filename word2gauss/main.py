@@ -24,7 +24,7 @@ def tokenizer(s):
 with open(filename, 'r') as file:
     data = tokenizer(file.read().replace('\n', ' '))
 
-print(data)
+# print(data)
 
 entity_2_idx = defaultdict(lambda: len(entity_2_idx))
 counter = Counter()
@@ -35,7 +35,7 @@ for entity in tqdm(data):
     counter[entity_2_idx[entity]] += 1
     dataset.append(entity_2_idx[entity])
 
-print(entity_2_idx)
+# print(entity_2_idx)
 num_tokens = len(entity_2_idx)
 print("num_tokens = {}".format(num_tokens))
 
@@ -57,7 +57,8 @@ embed = GaussianEmbedding(num_tokens, 100,
     covariance_type='spherical', energy_type='KL')
 
 
-# print(embed.mu)
+print("---------- INITIAL EMBEDDING MEANS ----------")
+print(embed.mu)
 
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
@@ -69,6 +70,10 @@ with open(filename, 'r') as corpus:
     # for pair in iter_pairs(corpus, vocab):
         # print(pair.shape)
     embed.train(iter_pairs(corpus, vocab), n_workers=8)
+
+
+print("---------- FINAL EMBEDDING MEANS ----------")
+print(embed.mu)
 
 # save the model for later
 # embed.save('model_file_location', vocab=vocab.id2word, full=True)
