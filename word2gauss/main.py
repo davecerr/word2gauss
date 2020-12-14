@@ -28,7 +28,7 @@ with open(filename, 'r') as file:
 
 entity_2_idx = defaultdict(lambda: len(entity_2_idx))
 num_tokens = len(entity_2_idx)
-print(f"num_tokens = {num_tokens}")
+print("num_tokens = {}".format(num_tokens))
 counter = Counter()
 dataset = []
 
