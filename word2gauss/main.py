@@ -66,9 +66,9 @@ print(embed.mu)
 
 
 with open(filename, 'r') as corpus:
-    for pair in iter_pairs(corpus, vocab):
-        print(pair.shape)
-    # embed.train(iter_pairs(corpus, vocab), n_workers=8)
+    # for pair in iter_pairs(corpus, vocab):
+        # print(pair.shape)
+    embed.train(iter_pairs(corpus, vocab), n_workers=8)
 
 # save the model for later
 # embed.save('model_file_location', vocab=vocab.id2word, full=True)
