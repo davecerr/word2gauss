@@ -40,7 +40,7 @@ for entity in tqdm(data):
 
 # load the vocabulary
 vocab = Vocabulary(entity_2_idx,tokenizer)
-
+print(vocab)
 # create the embedding to train
 # use 100 dimensional spherical Gaussian with KL-divergence as energy function
 embed = GaussianEmbedding(len(vocab), 100,
