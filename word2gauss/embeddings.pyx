@@ -54,7 +54,7 @@ import numpy as np
 from tarfile import open as open_tar
 from contextlib import closing
 
-from .utils import cosine
+from utils import cosine
 
 from cpython.version cimport PY_MAJOR_VERSION
 import six
