@@ -57,7 +57,7 @@ embed = GaussianEmbedding(num_tokens, 100,
     covariance_type='spherical', energy_type='KL')
 
 
-print(embed.dist)
+print(embed.mu)
 
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
