@@ -4,8 +4,8 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 from gzip import GzipFile
 from collections import defaultdict, Counter
 from tqdm import tqdm
-#from word2gauss import GaussianEmbedding, iter_pairs
-from words import Vocabulary
+from embeddings import GaussianEmbedding #, iter_pairs
+from words import Vocabulary, iter_pairs
 
 def tokenizer(s):
     '''
