@@ -5,7 +5,7 @@ from gzip import GzipFile
 from collections import defaultdict, Counter
 from tqdm import tqdm
 #from word2gauss import GaussianEmbedding, iter_pairs
-from words import Vocabulary
+#from words import Vocabulary
 
 def tokenizer(s):
     '''
