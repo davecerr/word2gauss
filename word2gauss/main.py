@@ -30,11 +30,11 @@ for entity in tqdm(data):
     counter[entity_2_idx[entity]] += 1
     dataset.append(entity_2_idx[entity])
 
-# print(entity_2_idx)
-# print("\n\n")
-# print(counter)
-# print("\n\n")
-# print(dataset)
+print(entity_2_idx)
+print("\n\n")
+print(counter)
+print("\n\n")
+print(dataset)
 
 #### OLD ####
 
