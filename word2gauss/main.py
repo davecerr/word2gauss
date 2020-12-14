@@ -59,7 +59,7 @@ embed = GaussianEmbedding(num_tokens, 100,
 
 
 with open(filename, 'r') as corpus:
-    print(iter_pairs(corpus, vocab))
+    print(list(iter_pairs(corpus, vocab)))
     embed.train(iter_pairs(corpus, vocab), n_workers=8)
 
 # save the model for later
