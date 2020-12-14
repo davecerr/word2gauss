@@ -56,6 +56,9 @@ print(vocab)
 embed = GaussianEmbedding(num_tokens, 100,
     covariance_type='spherical', energy_type='KL')
 
+
+print(embed.dist)
+
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
 # gzip file for example
