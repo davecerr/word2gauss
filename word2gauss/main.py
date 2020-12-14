@@ -27,10 +27,6 @@ with open(filename, 'r') as file:
 print(data)
 
 entity_2_idx = defaultdict(lambda: len(entity_2_idx))
-print(entity_2_idx)
-
-num_tokens = len(entity_2_idx)
-print("num_tokens = {}".format(num_tokens))
 counter = Counter()
 dataset = []
 
@@ -38,6 +34,11 @@ for entity in tqdm(data):
     entity_2_idx[entity]
     counter[entity_2_idx[entity]] += 1
     dataset.append(entity_2_idx[entity])
+
+print(entity_2_idx)
+num_tokens = len(entity_2_idx)
+print("num_tokens = {}".format(num_tokens))
+
 
 # print(entity_2_idx)
 # print("\n\n")
