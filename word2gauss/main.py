@@ -39,7 +39,7 @@ print(dataset)
 #### OLD ####
 
 # load the vocabulary
-vocab = Vocabulary(...)
+vocab = Vocabulary(entity_2_idx)
 
 # create the embedding to train
 # use 100 dimensional spherical Gaussian with KL-divergence as energy function
