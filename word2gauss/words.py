@@ -3,7 +3,7 @@ from itertools import islice
 
 import numpy as np
 
-from .embeddings import text_to_pairs
+from embeddings import text_to_pairs
 
 LARGEST_UINT32 = 4294967295
 
@@ -48,7 +48,7 @@ class Vocabulary(object):
 
     def tokenize(self, s):
         '''
-        Removes OOV tokens using built 
+        Removes OOV tokens using built
         '''
         tokens = self._tokenizer(s)
         return [token for token in tokens if token in self._tokens]
@@ -59,7 +59,7 @@ class Vocabulary(object):
             return np.array([self.word2id(token)
                                 for token in tokens if token in self._tokens],
                                 dtype=np.uint32)
-                
+
         else:
             ret = np.zeros(len(tokens), dtype=np.uint32)
             for k, token in enumerate(tokens):
@@ -101,4 +101,3 @@ def iter_pairs(fin, vocab, batch_size=10, nsamples=2, window=5):
             half_window_size=window)
         yield pairs
         batch = list(islice(documents, batch_size))
-
