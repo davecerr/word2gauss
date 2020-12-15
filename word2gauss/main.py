@@ -81,8 +81,8 @@ print("---------- FINAL EMBEDDING COVS ----------")
 print(embed.sigma)
 
 sigma_norms = np.linalg.norm(embed.sigma, axis=1)
-most_general_indices = sigma_norms.argsort()[-10:][::-1]
-most_specific_indices = sigma_norms.argsort()[-10:]
+most_general_indices = np.split(sigma_norms,2)[0].argsort()[-10:][::-1]
+most_specific_indices = np.split(sigma_norms,2)[0].argsort()[-10:]
 
 idx_2_entity = {v: k for k, v in entity_2_idx.items()}
 
