@@ -74,7 +74,7 @@ for item in tqdm(data_list):
   lst.append(listToString(item))
 corpus = listToString(lst)
 data = tokenizer(corpus)
-print(data)
+# print(data)
 
 # data = str(data_list)
 # print(data)
@@ -110,11 +110,11 @@ num_tokens = len(entity_2_idx)
 print("num_tokens = {}".format(num_tokens))
 
 
-print(entity_2_idx)
-print("\n\n")
-print(counter)
-print("\n\n")
-print(dataset)
+# print(entity_2_idx)
+# print("\n\n")
+# print(counter)
+# print("\n\n")
+# print(dataset)
 
 #### OLD ####
 
