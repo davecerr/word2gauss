@@ -73,6 +73,7 @@ for item in tqdm(data_list):
   # print(item)
   lst.append(listToString(item))
 data = listToString(lst)
+data = tokenizer(data)
 print(data)
 
 # data = str(data_list)
