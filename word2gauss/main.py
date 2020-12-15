@@ -51,15 +51,15 @@ else:
         files += [f for f in fs if f.endswith(".gz")]
 
     files = [os.path.join("data/page_dist_training_data/", f) for f in files]
-    data_list = []
+    data_list = ""
     for i, file in tqdm(enumerate(files)):
-        sentences = list(_open_file(file))
+        sentences = str(_open_file(file))
         data_list += sentences
 
-    data = ""
-    for lst in tqdm(data_list):
-        for entity in lst:
-            data += entity
+    # data = ""
+    # for lst in tqdm(data_list):
+    #     for entity in lst:
+    #         data += entity
 
 
     pickle_out = open("data.pkl","wb")
