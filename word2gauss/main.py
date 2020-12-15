@@ -18,7 +18,7 @@ from words import Vocabulary, iter_pairs
 ######################### SETTINGS ############################################
 
 # War & Peace (MWE = 0) vs Wikipedia (MWE = 1)
-MWE = 1
+MWE = 0
 
 # embedding properties
 dimension = 100
@@ -26,7 +26,7 @@ cov_type = 'diagonal'
 E_type = 'KL'
 
 # Gaussian initialisation (random noise is added to these)
-mu0 = 10000
+mu0 = 0.1
 sigma_mean0 = 0.5
 sigma_std0 = 1.0
 
