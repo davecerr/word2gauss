@@ -108,7 +108,7 @@ print(embed.sigma)
 # the corpus is just an iterator of documents, here a new line separated
 # gzip file for example
 
-
+"""
 
 with open(filename, 'r') as corpus:
     # for pair in iter_pairs(corpus, vocab):
@@ -134,6 +134,6 @@ for idx in most_general_indices:
 print("MOST SPECIFIC ENTITIES")
 for idx in most_specific_indices:
     print(idx_2_entity[idx])
-
+"""
 # save the model for later
 # embed.save('model_file_location', vocab=vocab.id2word, full=True)
