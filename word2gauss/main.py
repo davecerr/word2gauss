@@ -25,10 +25,22 @@ dimension = 100
 cov_type = 'diagonal'
 E_type = 'KL'
 
+# Gaussian initialisation (random noise is added to these)
+mu0 = 0.1
+sigma_mean0 = 0.5
+sigma_std0 = 1.0
+
+# Gaussian bounds (avoid e.g. massive sigmas to get good overlap)
+mu_max = 2.0
+sigma_min = 0.7
+sigma_max = 1.5
+
 # training properties
 num_workers = 4
-# batch_size = 100
 report_schedule = 100
+eta = 0.1 # learning rate : pass float for global learning rate (no min) or dict with keys mu,sigma,mu_min,sigma_min (local learning rate for each)
+Closs = 0.1 # regularization parameter in max-margin loss
+
 
 
 ###############################################################################
@@ -143,8 +155,18 @@ vocab = Vocabulary(entity_2_idx,tokenizer)
 # print(vocab)
 # create the embedding to train
 # use 100 dimensional spherical Gaussian with KL-divergence as energy function
+
+# embed = GaussianEmbedding(num_tokens, dimension,
+#     covariance_type=cov_type, energy_type=E_type)
+
 embed = GaussianEmbedding(num_tokens, dimension,
-    covariance_type=cov_type, energy_type=E_type)
+          covariance_type=cov_type, energy_type=E_type,
+          mu_max=mu_max, sigma_min=sigma_min, sigma_max=sigma_max,
+          init_params={'mu0': mu0,
+              'sigma_mean0': sigma_mean0,
+              'sigma_std0': sigma_std0},
+          eta=eta, Closs=Closs)
+
 
 
 print("---------- INITIAL EMBEDDING MEANS ----------")
