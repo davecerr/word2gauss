@@ -119,11 +119,11 @@ num_tokens = len(entity_2_idx)
 print("num_tokens = {}".format(num_tokens))
 
 
-print(entity_2_idx)
-print("\n\n")
-print(counter)
-print("\n\n")
-print(dataset)
+# print(entity_2_idx)
+# print("\n\n")
+# print(counter)
+# print("\n\n")
+# print(dataset)
 print("Dataset length = {}".format(len(dataset)))
 
 #### OLD ####
