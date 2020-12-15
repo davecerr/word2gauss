@@ -60,6 +60,8 @@ embed = GaussianEmbedding(num_tokens, 100,
 print("---------- INITIAL EMBEDDING MEANS ----------")
 print(embed.mu)
 
+print(embed.sigma)
+
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
 # gzip file for example
