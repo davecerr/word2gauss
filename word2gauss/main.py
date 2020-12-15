@@ -59,7 +59,7 @@ embed = GaussianEmbedding(num_tokens, 100,
 
 print("---------- INITIAL EMBEDDING MEANS ----------")
 print(embed.mu)
-
+print("---------- INITIAL EMBEDDING COVS ----------")
 print(embed.sigma)
 
 # open the corpus and train with 8 threads
@@ -76,6 +76,10 @@ with open(filename, 'r') as corpus:
 
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
+print("---------- FINAL EMBEDDING COVS ----------")
+print(embed.sigma)
+
+
 
 # save the model for later
 # embed.save('model_file_location', vocab=vocab.id2word, full=True)
