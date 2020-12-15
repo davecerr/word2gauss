@@ -81,13 +81,18 @@ print("---------- FINAL EMBEDDING COVS ----------")
 print(embed.sigma)
 
 sigma_norms = np.linalg.norm(embed.sigma, axis=1)
-max_indices = sigma_norms.argsort()[-3:][::-1]
+most_general_indices = sigma_norms.argsort()[-10:][::-1]
+most_specific_indices = sigma_norms.argsort()[-10:]
 
 idx_2_entity = {v: k for k, v in entity_2_idx.items()}
-for idx in max_indices:
+
+print("MOST GENERAL ENTITIES")
+for idx in most_general_indices:
     print(idx_2_entity[idx])
 
-
+print("MOST SPECIFIC ENTITIES")
+for idx in most_specific_indices:
+    print(idx_2_entity[idx])
 
 # save the model for later
 # embed.save('model_file_location', vocab=vocab.id2word, full=True)
