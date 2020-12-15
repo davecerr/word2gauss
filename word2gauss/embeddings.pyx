@@ -745,7 +745,7 @@ cdef class GaussianEmbedding:
         else:
             raise AttributeError
 
-    def train(self, iter_pairs, n_workers, reporter=None, report_interval):
+    def train(self, iter_pairs, n_workers, report_interval, reporter=None):
         '''
         Train the model from an iterator of many batches of pairs.
 
