@@ -66,23 +66,13 @@ if os.path.exists("data_list.pkl"):
 
 print("LOADING TO STRING")
 lst = []
-
 # data_list = data_list[:10]
-
 for item in tqdm(data_list):
   # print(item)
   lst.append(listToString(item))
 corpus = listToString(lst)
 data = tokenizer(corpus)
 # print(data)
-
-# data = str(data_list)
-# print(data)
-# for lst in tqdm(data_list):
-#     for entity in lst:
-#         data += entity
-
-# print("Corpus length = {}".format(len(corpus)))
 
 
 ################################################################################
@@ -94,7 +84,6 @@ data = tokenizer(corpus)
 
 
 
-# print(data)
 
 entity_2_idx = defaultdict(lambda: len(entity_2_idx))
 counter = Counter()
