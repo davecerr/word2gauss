@@ -31,7 +31,7 @@ def tokenizer(s):
 
 input_dir = "/cs/ucl/msc/ml/2019/derringt/Projects/X5gon/word2gauss-1/data/"
 
-for root, dirs, files in os.walk(".", topdown=False):
+for root, dirs, files in os.walk("/data", topdown=False):
    for name in files:
       print(os.path.join(root, name))
    for name in dirs:
