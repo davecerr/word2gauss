@@ -779,8 +779,8 @@ cdef class GaussianEmbedding:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
                         t2 = time.time()
-                        LOGGER.info("Processed %s batches, loss: %s, elapsed time: %s"
-                                    % (processed[0], self.Closs, t2 - t1))
+                        LOGGER.info("Processed %s/%s batches, loss: %s, elapsed time: %s"
+                                    % (processed[0], len(iter_pairs), self.Closs, t2 - t1))
                         processed[1] = processed[0] + processed[2]
                         if reporter:
                             reporter(self, processed[0])
