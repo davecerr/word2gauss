@@ -53,7 +53,7 @@ else:
     files = [os.path.join("data/page_dist_training_data/", f) for f in files]
     data = ""
     for i, file in tqdm(enumerate(files)):
-        print(_open_file(file))
+        print(str(_open_file(file)))
         sentences = str(_open_file(file))
         data += sentences
 
