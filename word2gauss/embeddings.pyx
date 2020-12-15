@@ -744,7 +744,7 @@ cdef class GaussianEmbedding:
         else:
             raise AttributeError
 
-    def train(self, iter_pairs, dataset_length, n_workers=1, reporter=None, report_interval=10):
+    def train(self, iter_pairs, n_workers=1, reporter=None, report_interval=10):
         '''
         Train the model from an iterator of many batches of pairs.
 
@@ -774,13 +774,13 @@ cdef class GaussianEmbedding:
                 if pairs is None:
                     # no more data
                     break
-                self.train_batch(pairs)
+                loss = self.train_batch(pairs)
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
                         t2 = time.time()
-                        LOGGER.info("Processed %s/%s batches, loss: %s, elapsed time: %s"
-                                    % (processed[0], dataset_length, self.Closs, t2 - t1))
+                        LOGGER.info("Processed %s batches, loss: %s, elapsed time: %s"
+                                    % (processed[0], loss, t2 - t1))
                         processed[1] = processed[0] + processed[2]
                         if reporter:
                             reporter(self, processed[0])
@@ -810,7 +810,7 @@ cdef class GaussianEmbedding:
         Update the model with a single batch of pairs
         '''
         with nogil:
-            train_batch(&pairs[0, 0], pairs.shape[0],
+            loss = train_batch(&pairs[0, 0], pairs.shape[0],
                         self.energy_func, self.gradient_func,
                         self.mu_ptr, self.sigma_ptr, self.covariance_type,
                         self.N, self.K,
@@ -1287,6 +1287,7 @@ cdef void train_batch(
                                N, K)
 
     free(work)
+    return loss
 
 cdef void _accumulate_update(
         size_t k, DTYPE_t* dmu, DTYPE_t* dsigma,
