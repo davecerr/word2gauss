@@ -1,4 +1,7 @@
 import numpy as np
+import os
+import pickle as pkl
+
 import logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -7,10 +10,6 @@ from collections import defaultdict, Counter
 from tqdm import tqdm
 from embeddings import GaussianEmbedding #, iter_pairs
 from words import Vocabulary, iter_pairs
-
-
-filename = 'war_and_peace.txt'
-
 
 
 def tokenizer(s):
@@ -22,8 +21,50 @@ def tokenizer(s):
 
 
 #### NEW ####
-with open(filename, 'r') as file:
-    data = tokenizer(file.read().replace('\n', ' '))
+# filename = 'war_and_peace.txt'
+#
+# with open(filename, 'r') as file:
+#     data = tokenizer(file.read().replace('\n', ' '))
+
+################################################################################
+
+input_dir = "~/Projects/X5gon/word2gauss-1/data/page_dist_training_data/"
+
+print("\n\n----------- LOADING CORPUS ----------")
+if os.path.exists("corpus.pkl"):
+    start = time()
+    print("loading from existing pickle")
+    pickle_in = open("corpus.pkl","rb")
+    corpus = pkl.load(pickle_in)
+    end = time()
+    print(f"loaded in {round(end - start,2)} secs")
+else:
+    print("loading from gzip files")
+    files = []
+    for _, _, fs in os.walk(input_dir):
+        files += [f for f in fs if f.endswith(".gz")]
+
+    files = [os.path.join(input_dir, f) for f in files]
+    corpus = []
+    for i, file in tqdm(enumerate(files)):
+        sentences = list(_open_file(file))
+        corpus += sentences
+
+    pickle_out = open("corpus.pkl","wb")
+    pkl.dump(corpus, pickle_out)
+    pickle_out.close()
+
+print(f"Corpus length = {len(corpus)}")
+
+
+################################################################################
+
+
+
+
+
+
+
 
 # print(data)
 
