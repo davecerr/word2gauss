@@ -17,7 +17,7 @@ from words import Vocabulary, iter_pairs
 
 ######################### SETTINGS ############################################
 
-MWE = 1
+MWE = 0
 
 
 
@@ -124,7 +124,8 @@ print("num_tokens = {}".format(num_tokens))
 # print(counter)
 # print("\n\n")
 # print(dataset)
-print("Dataset length = {}".format(len(dataset)))
+dataset_length = len(dataset)
+print("Dataset length = {}".format(dataset_length))
 
 #### OLD ####
 
@@ -149,9 +150,9 @@ print(embed.sigma)
 
 if MWE == 1:
     with open(filename, 'r') as corpus:
-        embed.train(iter_pairs(corpus, vocab), n_workers=8)
+        embed.train(iter_pairs(corpus, vocab), dataset_length, n_workers=8)
 else:
-    embed.train(iter_pairs(corpus, vocab), n_workers=8)
+    embed.train(iter_pairs(corpus, vocab), daataset_length, n_workers=8)
 
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)

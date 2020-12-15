@@ -744,7 +744,7 @@ cdef class GaussianEmbedding:
         else:
             raise AttributeError
 
-    def train(self, iter_pairs, n_workers=1, reporter=None, report_interval=10):
+    def train(self, iter_pairs, dataset_length, n_workers=1, reporter=None, report_interval=10):
         '''
         Train the model from an iterator of many batches of pairs.
 
@@ -768,7 +768,6 @@ cdef class GaussianEmbedding:
         processed = [0, report_interval, report_interval]
         t1 = time.time()
         lock = Lock()
-        num_batches = sum(1 for _ in iter_pairs)
         def _worker():
             while True:
                 pairs = jobs.get()
@@ -781,7 +780,7 @@ cdef class GaussianEmbedding:
                     if processed[1] and processed[0] >= processed[1]:
                         t2 = time.time()
                         LOGGER.info("Processed %s/%s batches, loss: %s, elapsed time: %s"
-                                    % (processed[0], num_batches, self.Closs, t2 - t1))
+                                    % (processed[0], dataset_length, self.Closs, t2 - t1))
                         processed[1] = processed[0] + processed[2]
                         if reporter:
                             reporter(self, processed[0])
