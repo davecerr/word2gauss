@@ -152,7 +152,7 @@ if MWE == 1:
     with open(filename, 'r') as corpus:
         embed.train(iter_pairs(corpus, vocab), dataset_length, n_workers=8)
 else:
-    embed.train(iter_pairs(corpus, vocab), daataset_length, n_workers=8)
+    embed.train(iter_pairs(corpus, vocab), dataset_length, n_workers=8)
 
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
