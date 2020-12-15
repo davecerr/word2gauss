@@ -29,7 +29,7 @@ def tokenizer(s):
 
 ################################################################################
 
-input_dir = "~/Projects/X5gon/word2gauss-1/data/page_dist_training_data/"
+input_dir = "/cs/ucl/msc/ml/2019/derringt/Projects/X5gon/word2gauss-1/data/page_dist_training_data/"
 
 print("\n\n----------- LOADING DATA ----------")
 if os.path.exists("data.pkl"):
