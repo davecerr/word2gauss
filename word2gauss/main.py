@@ -63,6 +63,8 @@ else:
     pkl.dump(data_list, pickle_out)
     pickle_out.close()
 
+
+print("LOADING TO STRING")
 lst = []
 for i in tqdm(s):
   print(i)
