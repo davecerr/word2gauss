@@ -37,7 +37,7 @@ if os.path.exists("corpus.pkl"):
     pickle_in = open("corpus.pkl","rb")
     corpus = pkl.load(pickle_in)
     end = time()
-    print(f"loaded in {round(end - start,2)} secs")
+    print("loaded in {} secs".format(round(end - start,2)))
 else:
     print("loading from gzip files")
     files = []
@@ -54,7 +54,7 @@ else:
     pkl.dump(corpus, pickle_out)
     pickle_out.close()
 
-print(f"Corpus length = {len(corpus)}")
+print("Corpus length = {}".format(len(corpus)))
 
 
 ################################################################################
