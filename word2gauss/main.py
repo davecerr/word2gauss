@@ -60,7 +60,7 @@ embed = GaussianEmbedding(num_tokens, 100,
 print("---------- INITIAL EMBEDDING MEANS ----------")
 print(embed.mu)
 print("---------- INITIAL EMBEDDING COVS ----------")
-print(embed.sigma)
+print(embed.sigma.shape)
 
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
@@ -77,7 +77,8 @@ with open(filename, 'r') as corpus:
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
 print("---------- FINAL EMBEDDING COVS ----------")
-print(embed.sigma)
+print(embed.sigma.shape)
+print(embed.covariance_type)
 
 
 
