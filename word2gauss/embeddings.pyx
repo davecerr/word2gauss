@@ -768,6 +768,7 @@ cdef class GaussianEmbedding:
         processed = [0, report_interval, report_interval]
         t1 = time.time()
         lock = Lock()
+        num_batches = sum(1 for _ in iter_pairs)
         def _worker():
             while True:
                 pairs = jobs.get()
@@ -780,7 +781,7 @@ cdef class GaussianEmbedding:
                     if processed[1] and processed[0] >= processed[1]:
                         t2 = time.time()
                         LOGGER.info("Processed %s/%s batches, loss: %s, elapsed time: %s"
-                                    % (processed[0], len(iter_pairs), self.Closs, t2 - t1))
+                                    % (processed[0], num_batches, self.Closs, t2 - t1))
                         processed[1] = processed[0] + processed[2]
                         if reporter:
                             reporter(self, processed[0])
