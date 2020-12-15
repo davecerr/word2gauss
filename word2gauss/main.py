@@ -12,6 +12,10 @@ from tqdm import tqdm
 from embeddings import GaussianEmbedding #, iter_pairs
 from words import Vocabulary, iter_pairs
 
+def _open_file(filename):
+    with gzip.open(filename) as infile:
+        for _, line in enumerate(infile):
+            yield json.loads(line)
 
 def tokenizer(s):
     '''
