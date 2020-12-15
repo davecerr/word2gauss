@@ -52,9 +52,10 @@ else:
 
     files = [os.path.join("data/page_dist_training_data/", f) for f in files]
     data = ""
-    for i, file in tqdm(enumerate(files)):
+    for i, file in tqdm(enumerate(files)[3]):
         sentences = list(_open_file(file))
         print(sentences)
+        print("\n\n")
         data += sentences
 
     pickle_out = open("data.pkl","wb")
