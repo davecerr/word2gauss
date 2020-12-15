@@ -42,13 +42,13 @@ def listToString(s):
 
 print("\n\n----------- LOADING DATA ----------")
 if os.path.exists("data_list.pkl"):
-    start = time.time()
-    print("loading from existing pickle")
-    pickle_in = open("data_list.pkl","rb")
-    data_list = pkl.load(pickle_in)
-    end = time.time()
-    print("loaded in {} secs".format(round(end - start,2)))
-else:
+#     start = time.time()
+#     print("loading from existing pickle")
+#     pickle_in = open("data_list.pkl","rb")
+#     data_list = pkl.load(pickle_in)
+#     end = time.time()
+#     print("loaded in {} secs".format(round(end - start,2)))
+# else:
     print("loading from gzip files")
     files = []
     for _, _, fs in os.walk("data/", topdown=False):
