@@ -29,14 +29,6 @@ def tokenizer(s):
 
 ################################################################################
 
-input_dir = "/cs/ucl/msc/ml/2019/derringt/Projects/X5gon/word2gauss-1/data/"
-
-for root, dirs, files in os.walk("data/", topdown=False):
-   for name in files:
-      print(os.path.join(root, name))
-   for name in dirs:
-      print(os.path.join(root, name))
-
 
 print("\n\n----------- LOADING DATA ----------")
 if os.path.exists("data.pkl"):
@@ -49,11 +41,10 @@ if os.path.exists("data.pkl"):
 else:
     print("loading from gzip files")
     files = []
-    print(os.walk(input_dir))
-    for _, _, fs in os.walk(input_dir):
+    for _, _, fs in os.walk("data/", topdown=False):
         files += [f for f in fs if f.endswith(".gz")]
 
-    files = [os.path.join(input_dir, f) for f in files]
+    files = [os.path.join("data/", f) for f in files]
     data = ""
     for i, file in tqdm(enumerate(files)):
         sentences = list(_open_file(file))
