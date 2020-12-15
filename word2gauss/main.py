@@ -54,7 +54,7 @@ vocab = Vocabulary(entity_2_idx,tokenizer)
 # create the embedding to train
 # use 100 dimensional spherical Gaussian with KL-divergence as energy function
 embed = GaussianEmbedding(num_tokens, 100,
-    covariance_type='spherical', energy_type='KL')
+    covariance_type='DIAGONAL', energy_type='KL')
 
 
 print("---------- INITIAL EMBEDDING MEANS ----------")
