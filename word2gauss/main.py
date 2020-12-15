@@ -49,7 +49,7 @@ else:
     for _, _, fs in os.walk("data/", topdown=False):
         files += [f for f in fs if f.endswith(".gz")]
 
-    files = [os.path.join("data/", f) for f in files]
+    files = [os.path.join("data/page_dist_training_data/", f) for f in files]
     data = ""
     for i, file in tqdm(enumerate(files)):
         sentences = list(_open_file(file))
