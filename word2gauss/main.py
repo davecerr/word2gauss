@@ -14,6 +14,23 @@ from tqdm import tqdm
 from embeddings import GaussianEmbedding #, iter_pairs
 from words import Vocabulary, iter_pairs
 
+
+######################### SETTINGS ############################################
+
+MWE = 1
+
+
+
+
+###############################################################################
+
+
+
+
+
+
+
+
 def _open_file(filename):
     with gzip.open(filename) as infile:
         for _, line in enumerate(infile):
@@ -31,47 +48,50 @@ def listToString(s):
     # return string
     return (str1.join(s))
 
-#### NEW ####
-# filename = 'war_and_peace.txt'
-#
-# with open(filename, 'r') as file:
-#     data = tokenizer(file.read().replace('\n', ' '))
-
-################################################################################
 
 
-print("\n\n----------- LOADING DATA ----------")
-if os.path.exists("data_list.pkl"):
-#     start = time.time()
-#     print("loading from existing pickle")
-#     pickle_in = open("data_list.pkl","rb")
-#     data_list = pkl.load(pickle_in)
-#     end = time.time()
-#     print("loaded in {} secs".format(round(end - start,2)))
-# else:
-    print("loading from gzip files")
-    files = []
-    for _, _, fs in os.walk("data/", topdown=False):
-        files += [f for f in fs if f.endswith(".gz")]
-
-    files = [os.path.join("data/page_dist_training_data/", f) for f in files]
-    data_list = []
-    for i, file in tqdm(enumerate(files)):
-        sentences = list(_open_file(file))
-        data_list += sentences
-    # pickle_out = open("data_list.pkl","wb")
-    # pkl.dump(data_list, pickle_out)
-    # pickle_out.close()
 
 
-print("LOADING TO STRING")
-lst = []
-# data_list = data_list[:10]
-for item in tqdm(data_list):
-  # print(item)
-  lst.append(listToString(item))
-corpus = listToString(lst)
-data = tokenizer(corpus)
+######################### LOAD DATA ###########################################
+
+if MWE == 1:
+    filename = 'war_and_peace.txt'
+    with open(filename, 'r') as file:
+        data = tokenizer(file.read().replace('\n', ' '))
+else:
+    print("\n\n----------- LOADING DATA ----------")
+    if os.path.exists("data_list.pkl"):
+    #     start = time.time()
+    #     print("loading from existing pickle")
+    #     pickle_in = open("data_list.pkl","rb")
+    #     data_list = pkl.load(pickle_in)
+    #     end = time.time()
+    #     print("loaded in {} secs".format(round(end - start,2)))
+    # else:
+        print("loading from gzip files")
+        files = []
+        for _, _, fs in os.walk("data/", topdown=False):
+            files += [f for f in fs if f.endswith(".gz")]
+
+        files = [os.path.join("data/page_dist_training_data/", f) for f in files]
+        data_list = []
+        for i, file in tqdm(enumerate(files)):
+            sentences = list(_open_file(file))
+            data_list += sentences
+        # pickle_out = open("data_list.pkl","wb")
+        # pkl.dump(data_list, pickle_out)
+        # pickle_out.close()
+
+    print("LOADING TO STRING")
+    lst = []
+    # data_list = data_list[:10]
+    for item in tqdm(data_list):
+      # print(item)
+      lst.append(listToString(item))
+    corpus = listToString(lst)
+    data = tokenizer(corpus)
+
+
 # print(data)
 
 
@@ -99,11 +119,12 @@ num_tokens = len(entity_2_idx)
 print("num_tokens = {}".format(num_tokens))
 
 
-# print(entity_2_idx)
-# print("\n\n")
-# print(counter)
-# print("\n\n")
-# print(dataset)
+print(entity_2_idx)
+print("\n\n")
+print(counter)
+print("\n\n")
+print(dataset)
+print("Dataset length = {}".format(len(dataset)))
 
 #### OLD ####
 
@@ -126,11 +147,11 @@ print(embed.sigma)
 # gzip file for example
 
 
-
-# with open(filename, 'r') as corpus:
-    # for pair in iter_pairs(corpus, vocab):
-        # print(pair.shape)
-embed.train(iter_pairs(corpus, vocab), n_workers=8)
+if MWE == 1:
+    with open(filename, 'r') as corpus:
+        embed.train(iter_pairs(corpus, vocab), n_workers=8)
+else:
+    embed.train(iter_pairs(corpus, vocab), n_workers=8)
 
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
