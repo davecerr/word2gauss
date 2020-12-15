@@ -72,8 +72,8 @@ data_list = data_list[:10]
 for item in tqdm(data_list):
   # print(item)
   lst.append(listToString(item))
-data = listToString(lst)
-data = tokenizer(data)
+corpus = listToString(lst)
+data = tokenizer(corpus)
 print(data)
 
 # data = str(data_list)
@@ -136,13 +136,14 @@ print(embed.sigma)
 # the corpus is just an iterator of documents, here a new line separated
 # gzip file for example
 
-"""
 
-with open(filename, 'r') as corpus:
+
+# with open(filename, 'r') as corpus:
     # for pair in iter_pairs(corpus, vocab):
         # print(pair.shape)
-    embed.train(iter_pairs(corpus, vocab), n_workers=8)
+embed.train(iter_pairs(corpus, vocab), n_workers=8)
 
+"""
 
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
