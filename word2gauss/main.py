@@ -41,7 +41,7 @@ def listToString(s):
 
 
 print("\n\n----------- LOADING DATA ----------")
-if os.path.exists("data.pkl"):
+if os.path.exists("data_list.pkl"):
     start = time.time()
     print("loading from existing pickle")
     pickle_in = open("data_list.pkl","rb")
