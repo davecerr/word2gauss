@@ -159,7 +159,7 @@ vocab = Vocabulary(entity_2_idx,tokenizer)
 # embed = GaussianEmbedding(num_tokens, dimension,
 #     covariance_type=cov_type, energy_type=E_type)
 
-embed = GaussianEmbedding(num_tokens, dimension,
+embed = GaussianEmbedding(N=num_tokens, size=dimension,
           covariance_type=cov_type, energy_type=E_type,
           mu_max=mu_max, sigma_min=sigma_min, sigma_max=sigma_max,
           init_params={'mu0': mu0,

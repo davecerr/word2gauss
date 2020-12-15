@@ -187,6 +187,17 @@ cdef class GaussianEmbedding:
     cdef DTYPE_t *acc_grad_mu_ptr
     cdef DTYPE_t *acc_grad_sigma_ptr
 
+    def __cinit__(self, N, size,
+                  covariance_type, energy_type,
+                  mu_max, sigma_min, sigma_max,
+                  init_params={
+                      'mu0': mu0,
+                      'sigma_mean0': sigma_mean0,
+                      'sigma_std0': sigma_st0
+                  },
+                  eta, Closs,
+                  mu=None, sigma=None):
+
     def __cinit__(self, N, size=100,
                   covariance_type='spherical', mu_max=2.0, sigma_min=0.7, sigma_max=1.5,
                   energy_type='KL',
