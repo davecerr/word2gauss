@@ -40,8 +40,8 @@ print("\n\n----------- LOADING DATA ----------")
 if os.path.exists("data.pkl"):
     start = time.time()
     print("loading from existing pickle")
-    pickle_in = open("data.pkl","rb")
-    data = pkl.load(pickle_in)
+    pickle_in = open("data_list.pkl","rb")
+    data_list = pkl.load(pickle_in)
     end = time.time()
     print("loaded in {} secs".format(round(end - start,2)))
 else:
@@ -55,17 +55,16 @@ else:
     for i, file in tqdm(enumerate(files)):
         sentences = list(_open_file(file))
         data_list += sentences
-
-    data = str(data_list)
-    print(data)
-    # for lst in tqdm(data_list):
-    #     for entity in lst:
-    #         data += entity
-
-
-    pickle_out = open("data.pkl","wb")
-    pkl.dump(data, pickle_out)
+    pickle_out = open("data_list.pkl","wb")
+    pkl.dump(data_list, pickle_out)
     pickle_out.close()
+
+
+data = str(data_list)
+print(data)
+# for lst in tqdm(data_list):
+#     for entity in lst:
+#         data += entity
 
 # print("Corpus length = {}".format(len(corpus)))
 
