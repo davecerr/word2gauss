@@ -17,9 +17,18 @@ from words import Vocabulary, iter_pairs
 
 ######################### SETTINGS ############################################
 
+# War & Peace (MWE = 0) vs Wikipedia (MWE = 1)
 MWE = 1
 
+# embedding properties
+dimension = 100
+cov_type = 'diagonal'
+E_type = 'KL'
 
+# training properties
+num_workers = 4
+# batch_size = 100
+report_schedule = 100
 
 
 ###############################################################################
@@ -134,8 +143,8 @@ vocab = Vocabulary(entity_2_idx,tokenizer)
 # print(vocab)
 # create the embedding to train
 # use 100 dimensional spherical Gaussian with KL-divergence as energy function
-embed = GaussianEmbedding(num_tokens, 100,
-    covariance_type='diagonal', energy_type='KL')
+embed = GaussianEmbedding(num_tokens, dimension,
+    covariance_type=cov_type, energy_type=E_type)
 
 
 print("---------- INITIAL EMBEDDING MEANS ----------")
@@ -150,9 +159,9 @@ print(embed.sigma)
 
 if MWE == 1:
     with open(filename, 'r') as corpus:
-        embed.train(iter_pairs(corpus, vocab), n_workers=8)
+        embed.train(iter_pairs(corpus, vocab), n_workers=num_workers, report_interval=report_schedule)
 else:
-    embed.train(iter_pairs(corpus, vocab), n_workers=8)
+    embed.train(iter_pairs(corpus, vocab), n_workers=num_workers, report_interval=report_schedule)
 
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
