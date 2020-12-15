@@ -143,8 +143,6 @@ print(embed.sigma)
         # print(pair.shape)
 embed.train(iter_pairs(corpus, vocab), n_workers=8)
 
-"""
-
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
 print("---------- FINAL EMBEDDING COVS ----------")
@@ -163,6 +161,6 @@ for idx in most_general_indices:
 print("MOST SPECIFIC ENTITIES")
 for idx in most_specific_indices:
     print(idx_2_entity[idx])
-"""
+
 # save the model for later
 # embed.save('model_file_location', vocab=vocab.id2word, full=True)
