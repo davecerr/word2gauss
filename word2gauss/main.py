@@ -33,11 +33,11 @@ input_dir = "~/Projects/X5gon/word2gauss-1/data/page_dist_training_data/"
 
 print("\n\n----------- LOADING DATA ----------")
 if os.path.exists("data.pkl"):
-    start = time()
+    start = time.time()
     print("loading from existing pickle")
     pickle_in = open("data.pkl","rb")
     corpus = pkl.load(pickle_in)
-    end = time()
+    end = time.time()
     print("loaded in {} secs".format(round(end - start,2)))
 else:
     print("loading from gzip files")
