@@ -66,9 +66,9 @@ else:
 
 print("LOADING TO STRING")
 lst = []
-for i in tqdm(s):
-  print(i)
-  lst.append(listToString(i))
+for item in tqdm(data_list):
+  # print(item)
+  lst.append(listToString(item))
 data = listToString(lst)
 # data = str(data_list)
 # print(data)
