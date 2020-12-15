@@ -30,7 +30,7 @@ def tokenizer(s):
 ################################################################################
 
 input_dir = "/cs/ucl/msc/ml/2019/derringt/Projects/X5gon/word2gauss-1/data/"
-print(os.walk(..\\))
+print(os.walk("~/"))
 print("\n\n----------- LOADING DATA ----------")
 if os.path.exists("data.pkl"):
     start = time.time()
