@@ -26,7 +26,7 @@ cov_type = 'diagonal'
 E_type = 'KL'
 
 # Gaussian initialisation (random noise is added to these)
-mu0 = 0.1
+mu0 = 10000
 sigma_mean0 = 0.5
 sigma_std0 = 1.0
 
