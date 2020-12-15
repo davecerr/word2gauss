@@ -54,6 +54,7 @@ else:
     data = ""
     for i, file in tqdm(enumerate(files)):
         sentences = list(_open_file(file))
+        print(sentences)
         data += sentences
 
     pickle_out = open("data.pkl","wb")
