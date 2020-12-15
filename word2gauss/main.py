@@ -59,9 +59,9 @@ if os.path.exists("data_list.pkl"):
     for i, file in tqdm(enumerate(files)):
         sentences = list(_open_file(file))
         data_list += sentences
-    pickle_out = open("data_list.pkl","wb")
-    pkl.dump(data_list, pickle_out)
-    pickle_out.close()
+    # pickle_out = open("data_list.pkl","wb")
+    # pkl.dump(data_list, pickle_out)
+    # pickle_out.close()
 
 
 print("LOADING TO STRING")
