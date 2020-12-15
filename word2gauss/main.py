@@ -1,3 +1,4 @@
+import numpy as np
 import logging
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -84,7 +85,7 @@ max_indices = sigma_norms.argsort()[-3:][::-1]
 
 idx_2_entity = {v: k for k, v in entity_2_idx.items()}
 for idx in max_indices:
-    print(idx_2_entity[idx]) 
+    print(idx_2_entity[idx])
 
 
 
