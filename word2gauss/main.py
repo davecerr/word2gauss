@@ -42,6 +42,7 @@ if os.path.exists("data.pkl"):
 else:
     print("loading from gzip files")
     files = []
+    print(os.walk(input_dir))
     for _, _, fs in os.walk(input_dir):
         files += [f for f in fs if f.endswith(".gz")]
 
