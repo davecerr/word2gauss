@@ -51,10 +51,10 @@ else:
         files += [f for f in fs if f.endswith(".gz")]
 
     files = [os.path.join("data/page_dist_training_data/", f) for f in files]
-    data_list = ""
+    data = ""
     for i, file in tqdm(enumerate(files)):
         sentences = str(_open_file(file))
-        data_list += sentences
+        data += sentences
 
     # data = ""
     # for lst in tqdm(data_list):
