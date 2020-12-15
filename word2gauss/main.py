@@ -36,7 +36,7 @@ if os.path.exists("data.pkl"):
     start = time.time()
     print("loading from existing pickle")
     pickle_in = open("data.pkl","rb")
-    corpus = pkl.load(pickle_in)
+    data = pkl.load(pickle_in)
     end = time.time()
     print("loaded in {} secs".format(round(end - start,2)))
 else:
