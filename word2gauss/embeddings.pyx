@@ -774,13 +774,13 @@ cdef class GaussianEmbedding:
                 if pairs is None:
                     # no more data
                     break
-                loss = self.train_batch(pairs)
+                self.train_batch(pairs)
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
                         t2 = time.time()
-                        LOGGER.info("Processed %s batches, loss: %s, elapsed time: %s"
-                                    % (processed[0], loss, t2 - t1))
+                        LOGGER.info("Processed %s batches, elapsed time: %s"
+                                    % (processed[0], t2 - t1))
                         processed[1] = processed[0] + processed[2]
                         if reporter:
                             reporter(self, processed[0])
@@ -810,7 +810,7 @@ cdef class GaussianEmbedding:
         Update the model with a single batch of pairs
         '''
         with nogil:
-            loss = train_batch(&pairs[0, 0], pairs.shape[0],
+            train_batch(&pairs[0, 0], pairs.shape[0],
                         self.energy_func, self.gradient_func,
                         self.mu_ptr, self.sigma_ptr, self.covariance_type,
                         self.N, self.K,
@@ -1246,6 +1246,8 @@ cdef void train_batch(
         neg_energy = energy_func(negi, negj, center_index,
                                  mu_ptr, sigma_ptr, covariance_type, N, K)
         loss = Closs - pos_energy + neg_energy
+        LOGGER.info("loss = %s"
+                      % (loss))
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
@@ -1287,7 +1289,6 @@ cdef void train_batch(
                                N, K)
 
     free(work)
-    return loss
 
 cdef void _accumulate_update(
         size_t k, DTYPE_t* dmu, DTYPE_t* dsigma,
