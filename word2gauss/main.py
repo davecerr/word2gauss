@@ -30,11 +30,11 @@ def tokenizer(s):
 
 input_dir = "~/Projects/X5gon/word2gauss-1/data/page_dist_training_data/"
 
-print("\n\n----------- LOADING CORPUS ----------")
-if os.path.exists("corpus.pkl"):
+print("\n\n----------- LOADING DATA ----------")
+if os.path.exists("data.pkl"):
     start = time()
     print("loading from existing pickle")
-    pickle_in = open("corpus.pkl","rb")
+    pickle_in = open("data.pkl","rb")
     corpus = pkl.load(pickle_in)
     end = time()
     print("loaded in {} secs".format(round(end - start,2)))
@@ -45,16 +45,16 @@ else:
         files += [f for f in fs if f.endswith(".gz")]
 
     files = [os.path.join(input_dir, f) for f in files]
-    corpus = []
+    data = ""
     for i, file in tqdm(enumerate(files)):
         sentences = list(_open_file(file))
-        corpus += sentences
+        data += sentences
 
-    pickle_out = open("corpus.pkl","wb")
-    pkl.dump(corpus, pickle_out)
+    pickle_out = open("data.pkl","wb")
+    pkl.dump(data, pickle_out)
     pickle_out.close()
 
-print("Corpus length = {}".format(len(corpus)))
+# print("Corpus length = {}".format(len(corpus)))
 
 
 ################################################################################
