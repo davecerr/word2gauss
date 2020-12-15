@@ -17,7 +17,7 @@ from words import Vocabulary, iter_pairs
 
 ######################### SETTINGS ############################################
 
-MWE = 0
+MWE = 1
 
 
 
