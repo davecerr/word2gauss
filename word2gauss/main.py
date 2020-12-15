@@ -60,7 +60,7 @@ embed = GaussianEmbedding(num_tokens, 100,
 print("---------- INITIAL EMBEDDING MEANS ----------")
 print(embed.mu)
 print("---------- INITIAL EMBEDDING COVS ----------")
-print(embed.sigma.shape)
+print(embed.sigma)
 
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
@@ -77,8 +77,14 @@ with open(filename, 'r') as corpus:
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
 print("---------- FINAL EMBEDDING COVS ----------")
-print(embed.sigma.shape)
-print(embed.covariance_type)
+print(embed.sigma)
+
+sigma_norms = np.linalg.norm(embed.sigma, axis=1)
+max_indices = sigma_norms.argsort()[-3:][::-1]
+
+idx_2_entity = {v: k for k, v in entity_2_idx.items()}
+for idx in max_indices:
+    print(idx_2_entity[idx]) 
 
 
 
