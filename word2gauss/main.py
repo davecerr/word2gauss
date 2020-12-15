@@ -70,6 +70,8 @@ for item in tqdm(data_list):
   # print(item)
   lst.append(listToString(item))
 data = listToString(lst)
+print(data)
+
 # data = str(data_list)
 # print(data)
 # for lst in tqdm(data_list):
