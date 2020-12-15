@@ -198,16 +198,16 @@ cdef class GaussianEmbedding:
                   eta, Closs,
                   mu=None, sigma=None):
 
-    def __cinit__(self, N, size=100,
-                  covariance_type='spherical', mu_max=2.0, sigma_min=0.7, sigma_max=1.5,
-                  energy_type='KL',
-                  init_params={
-                      'mu0': 0.1,
-                      'sigma_mean0': 0.5,
-                      'sigma_std0': 1.0
-                  },
-                  eta=0.1, Closs=0.1,
-                  mu=None, sigma=None):
+    #def __cinit__(self, N, size=100,
+    #              covariance_type='spherical', mu_max=2.0, sigma_min=0.7, sigma_max=1.5,
+    #              energy_type='KL',
+    #              init_params={
+    #                  'mu0': 0.1,
+    #                  'sigma_mean0': 0.5,
+    #                  'sigma_std0': 1.0
+    #              },
+    #              eta=0.1, Closs=0.1,
+    #              mu=None, sigma=None):
         '''
         N = number of distributions (e.g. number of words)
         size = dimension of each Gaussian
