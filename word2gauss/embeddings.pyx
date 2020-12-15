@@ -45,6 +45,7 @@ from libc.math cimport log, sqrt
 from libc.stdlib cimport malloc, free
 from libcpp.vector cimport vector
 from libcpp.string cimport string
+from libc.stdio cimport printf
 
 import logging
 import time
@@ -1246,7 +1247,7 @@ cdef void train_batch(
         neg_energy = energy_func(negi, negj, center_index,
                                  mu_ptr, sigma_ptr, covariance_type, N, K)
         loss = Closs - pos_energy + neg_energy
-
+        printf("%f\n", loss)
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
             continue
