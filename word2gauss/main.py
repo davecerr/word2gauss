@@ -25,7 +25,11 @@ def tokenizer(s):
     '''
     return s.lower().replace(".", "").replace(",", "").replace(":", "").replace(";", "").strip().split()
 
-
+def listToString(s):
+    # initialize an empty string
+    str1 = " "
+    # return string
+    return (str1.join(s))
 
 #### NEW ####
 # filename = 'war_and_peace.txt'
@@ -59,9 +63,13 @@ else:
     pkl.dump(data_list, pickle_out)
     pickle_out.close()
 
-
-data = str(data_list)
-print(data)
+lst = []
+for i in tqdm(s):
+  print(i)
+  lst.append(listToString(i))
+data = listToString(lst)
+# data = str(data_list)
+# print(data)
 # for lst in tqdm(data_list):
 #     for entity in lst:
 #         data += entity
