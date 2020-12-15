@@ -1246,8 +1246,6 @@ cdef void train_batch(
         neg_energy = energy_func(negi, negj, center_index,
                                  mu_ptr, sigma_ptr, covariance_type, N, K)
         loss = Closs - pos_energy + neg_energy
-        LOGGER.info("loss = %s"
-                      % (loss))
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
