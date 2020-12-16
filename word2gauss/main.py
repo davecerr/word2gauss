@@ -36,12 +36,14 @@ sigma_min = 0.7
 sigma_max = 1.5
 
 # training properties
-num_workers = 10
-report_schedule = 100
+num_workers = 2
 eta = 0.1 # learning rate : pass float for global learning rate (no min) or dict with keys mu,sigma,mu_min,sigma_min (local learning rate for each)
 Closs = 0.1 # regularization parameter in max-margin loss
 
-
+if MWE == 1:
+    report_schedule = 100
+else:
+    report_schedule = 10000
 
 ###############################################################################
 
