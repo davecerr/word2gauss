@@ -18,7 +18,7 @@ from words import Vocabulary, iter_pairs
 ######################### SETTINGS ############################################
 
 # War & Peace (MWE = 0) vs Wikipedia (MWE = 1)
-MWE = 0
+MWE = 1
 
 # embedding properties
 dimension = 100
@@ -168,22 +168,22 @@ embed = GaussianEmbedding(N=num_tokens, size=dimension,
           eta=eta, Closs=Closs)
 
 
-
-print("---------- INITIAL EMBEDDING MEANS ----------")
-print(embed.mu)
-print("---------- INITIAL EMBEDDING COVS ----------")
-print(embed.sigma)
-
 # open the corpus and train with 8 threads
 # the corpus is just an iterator of documents, here a new line separated
 # gzip file for example
-
 
 if MWE == 1:
     with open(filename, 'r') as corpus:
         embed.train(iter_pairs(corpus, vocab), n_workers=num_workers, report_interval=report_schedule)
 else:
     embed.train(iter_pairs(corpus, vocab), n_workers=num_workers, report_interval=report_schedule)
+
+
+
+print("---------- INITIAL EMBEDDING MEANS ----------")
+print(embed.mu)
+print("---------- INITIAL EMBEDDING COVS ----------")
+print(embed.sigma)
 
 print("---------- FINAL EMBEDDING MEANS ----------")
 print(embed.mu)
@@ -205,4 +205,4 @@ for idx in most_specific_indices:
     print(idx_2_entity[idx])
 
 # save the model for later
-# embed.save('model_file_location', vocab=vocab.id2word, full=True)
+embed.save('model_file_location', vocab=vocab.id2word, full=True)
