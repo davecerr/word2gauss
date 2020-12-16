@@ -13,7 +13,7 @@ from collections import defaultdict, Counter
 from tqdm import tqdm
 from embeddings import GaussianEmbedding #, iter_pairs
 from words import Vocabulary, iter_pairs
-
+from utils import cosine
 
 ######################### SETTINGS ############################################
 
