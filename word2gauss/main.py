@@ -222,5 +222,7 @@ test.load('model_file_location')
 
 print("FINDING NEAREST NEIGHBOURS")
 
-test.nearest_neighbors(target=1, metric=cosine, num=10, vocab=vocab,
+neghbours = test.nearest_neighbors(target=1, metric=cosine, num=10, vocab=vocab,
                   sort_order='similarity')
+
+print(neighbours)
