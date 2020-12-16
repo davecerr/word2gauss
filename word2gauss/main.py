@@ -222,7 +222,16 @@ test.load('model_file_location')
 
 print("FINDING NEAREST NEIGHBOURS")
 
-neighbours = test.nearest_neighbors(target=1, metric=cosine, num=10, vocab=vocab,
+target = "and"
+metric = cosine
+num = 10
+
+target_idx = entity_2_idx[target]
+neighbours = test.nearest_neighbors(target=target_idx, metric=metric, num=num+1, vocab=vocab,
                   sort_order='similarity')
 
-print(neighbours)
+print("Target = {}".format(target))
+print("Similarity metric = {}".format(metric))
+print("\n\n")
+for i in range(1:num+1):
+    print(neighbours[i])
