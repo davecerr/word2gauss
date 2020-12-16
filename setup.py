@@ -10,7 +10,9 @@ ext_modules = [
         "word2gauss.embeddings",
         sources=['word2gauss/embeddings.pyx'],
         include_dirs=[np.get_include()],
-        language="c++"
+        language="c++",
+        extra_compile_args=["-fopenmp", "-ftree-vectorizer-verbose=2", "-O3", "-ffast-math"],
+        extra_link_args=["-fopenmp"]
     )
 ]
 

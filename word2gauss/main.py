@@ -230,9 +230,9 @@ target_idx = entity_2_idx[target]
 neighbours = embed.nearest_neighbors(target=target_idx, metric=metric, num=num+1, vocab=vocab,
                   sort_order='similarity')
 
+print("\n\n")
 print("Target = {}".format(target))
 print("Similarity metric = {}".format(metric))
-print("\n\n")
 for i in range(1,num+1):
     print("{}: {}".format(i,neighbours[i]))
     # print("rank {}: word = {}, sigma = {}, id = {}, similarity = {}".format(i,neighbours[i][word],neighbours[i][sigma],neighbours[i][id],neighbours[i][similarity]))
