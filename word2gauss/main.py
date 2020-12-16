@@ -205,4 +205,16 @@ for idx in most_specific_indices:
     print(idx_2_entity[idx])
 
 # save the model for later
+print("SAVING MODEL")
 embed.save('model_file_location', vocab=vocab.id2word, full=True)
+
+
+test = GaussianEmbedding(N=num_tokens, size=dimension,
+          covariance_type=cov_type, energy_type=E_type,
+          mu_max=mu_max, sigma_min=sigma_min, sigma_max=sigma_max,
+          init_params={'mu0': mu0,
+              'sigma_mean0': sigma_mean0,
+              'sigma_std0': sigma_std0},
+          eta=eta, Closs=Closs)
+
+test.load('model_file_location')
