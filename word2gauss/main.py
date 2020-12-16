@@ -21,7 +21,7 @@ from utils import cosine
 MWE = 0
 
 # embedding properties
-dimension = 50
+dimension = 100
 cov_type = 'diagonal'
 E_type = 'KL'
 
