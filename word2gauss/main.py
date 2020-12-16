@@ -208,16 +208,16 @@ for idx in most_specific_indices:
 print("SAVING MODEL")
 embed.save('model_file_location', vocab=vocab.id2word, full=True)
 
-print("LOADING MODEL")
-test = GaussianEmbedding(N=num_tokens, size=dimension,
-          covariance_type=cov_type, energy_type=E_type,
-          mu_max=mu_max, sigma_min=sigma_min, sigma_max=sigma_max,
-          init_params={'mu0': mu0,
-              'sigma_mean0': sigma_mean0,
-              'sigma_std0': sigma_std0},
-          eta=eta, Closs=Closs)
-
-test.load('model_file_location')
+# print("LOADING MODEL")
+# test = GaussianEmbedding(N=num_tokens, size=dimension,
+#           covariance_type=cov_type, energy_type=E_type,
+#           mu_max=mu_max, sigma_min=sigma_min, sigma_max=sigma_max,
+#           init_params={'mu0': mu0,
+#               'sigma_mean0': sigma_mean0,
+#               'sigma_std0': sigma_std0},
+#           eta=eta, Closs=Closs)
+#
+# test.load('model_file_location')
 
 
 print("FINDING NEAREST NEIGHBOURS")
@@ -234,4 +234,4 @@ print("Target = {}".format(target))
 print("Similarity metric = {}".format(metric))
 print("\n\n")
 for i in range(1,num+1):
-    print(neighbours[i])
+    print("rank {}: word = {}, sigma = {}, id = {}, similarity = {}".format(i,neighbours[i][word],neighbours[i][sigma],neighbours[i][id],neighbours[i][similarity])
