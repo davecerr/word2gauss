@@ -208,7 +208,7 @@ for idx in most_specific_indices:
 print("SAVING MODEL")
 embed.save('model_file_location', vocab=vocab.id2word, full=True)
 
-
+print("LOADING MODEL")
 test = GaussianEmbedding(N=num_tokens, size=dimension,
           covariance_type=cov_type, energy_type=E_type,
           mu_max=mu_max, sigma_min=sigma_min, sigma_max=sigma_max,
@@ -218,3 +218,9 @@ test = GaussianEmbedding(N=num_tokens, size=dimension,
           eta=eta, Closs=Closs)
 
 test.load('model_file_location')
+
+
+print("FINDING NEAREST NEIGHBOURS")
+
+test.nearest_neighbors(target=1, metric=cosine, num=10, vocab=vocab,
+                  sort_order='similarity'):
