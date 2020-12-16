@@ -21,7 +21,7 @@ from utils import cosine
 MWE = 0
 
 # embedding properties
-dimension = 100
+dimension = 50
 cov_type = 'diagonal'
 E_type = 'KL'
 
@@ -43,7 +43,7 @@ Closs = 0.1 # regularization parameter in max-margin loss
 if MWE == 1:
     report_schedule = 100
 else:
-    report_schedule = 10000
+    report_schedule = 100000
 
 ###############################################################################
 
