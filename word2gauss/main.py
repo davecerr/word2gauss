@@ -222,7 +222,7 @@ embed.save('model_file_location', vocab=vocab.id2word, full=True)
 
 print("FINDING NEAREST NEIGHBOURS")
 
-target = "and"
+target = "convert"
 metric = cosine
 num = 10
 
