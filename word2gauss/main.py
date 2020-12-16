@@ -233,5 +233,5 @@ neighbours = test.nearest_neighbors(target=target_idx, metric=metric, num=num+1,
 print("Target = {}".format(target))
 print("Similarity metric = {}".format(metric))
 print("\n\n")
-for i in range(1:num+1):
+for i in range(1,num+1):
     print(neighbours[i])
