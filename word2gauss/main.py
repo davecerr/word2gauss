@@ -227,7 +227,7 @@ metric = cosine
 num = 10
 
 target_idx = entity_2_idx[target]
-neighbours = test.nearest_neighbors(target=target_idx, metric=metric, num=num+1, vocab=vocab,
+neighbours = embed.nearest_neighbors(target=target_idx, metric=metric, num=num+1, vocab=vocab,
                   sort_order='similarity')
 
 print("Target = {}".format(target))
