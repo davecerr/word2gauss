@@ -21,7 +21,7 @@ from utils import cosine
 MWE = 0
 
 # embedding properties
-dimension = 100
+dimension = 50
 cov_type = 'diagonal'
 E_type = 'KL'
 
@@ -208,7 +208,7 @@ for idx in most_specific_indices:
 
 # save the model for later
 print("SAVING MODEL")
-embed.save('model_file_location', vocab=vocab.id2word, full=True)
+embed.save('model_file_location_{}'.format(dimension), vocab=vocab.id2word, full=True)
 
 # print("LOADING MODEL")
 # test = GaussianEmbedding(N=num_tokens, size=dimension,
