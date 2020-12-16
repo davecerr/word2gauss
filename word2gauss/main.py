@@ -234,4 +234,5 @@ print("Target = {}".format(target))
 print("Similarity metric = {}".format(metric))
 print("\n\n")
 for i in range(1,num+1):
-    print("rank {}: word = {}, sigma = {}, id = {}, similarity = {}".format(i,neighbours[i][word],neighbours[i][sigma],neighbours[i][id],neighbours[i][similarity]))
+    print("{}: {}".format(i,neighbours[i]))
+    # print("rank {}: word = {}, sigma = {}, id = {}, similarity = {}".format(i,neighbours[i][word],neighbours[i][sigma],neighbours[i][id],neighbours[i][similarity]))
