@@ -745,11 +745,10 @@ cdef class GaussianEmbedding:
         else:
             raise AttributeError
 
-    def train(self, iter_pairs, num_epochs, n_workers, report_interval, reporter=None):
+    def train(self, iter_pairs, n_workers, report_interval, reporter=None):
         '''
         Train the model from an iterator of many batches of pairs.
 
-        repeat for num_epochs
         use n_workers many workers
         report_interval: report progress every this many batches,
             if None then never report
@@ -798,10 +797,8 @@ cdef class GaussianEmbedding:
             threads.append(thread)
 
         # put data on the queue!
-        for e in range(num_epochs):
-            LOGGER.info("Epoch %s" % (e))
-            for batch_pairs in iter_pairs:
-                jobs.put(batch_pairs)
+        for batch_pairs in iter_pairs:
+            jobs.put(batch_pairs)
 
         # no more data, tell the threads to stop
         for i in range(len(threads)):
