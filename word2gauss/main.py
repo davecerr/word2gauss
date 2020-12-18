@@ -18,7 +18,7 @@ from utils import cosine
 ######################### SETTINGS ############################################
 
 # War & Peace (MWE = 0) vs Wikipedia (MWE = 1)
-MWE = 0
+MWE = 1
 
 # embedding properties
 dimension = 50
