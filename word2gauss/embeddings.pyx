@@ -1235,6 +1235,8 @@ cdef void train_batch(
     cdef DTYPE_t *dsigmai = work + 2 * K
     cdef DTYPE_t *dsigmaj = work + 3 * K
 
+    total_loss = 0
+    
     for k in range(Npairs):
 
         # compute the loss
