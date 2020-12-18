@@ -1219,6 +1219,7 @@ cdef void train_batch(
     '''
     cdef size_t k, posi, posj, negi, negj, pos_neg, i, j, center_index
     cdef DTYPE_t loss
+    cdef DTYPE_t total_loss
     cdef DTYPE_t pos_energy, neg_energy
     cdef DTYPE_t fac
 
@@ -1254,8 +1255,9 @@ cdef void train_batch(
             # loss for this sample is 0, nothing to update
             continue
         else:
-            printf("loss: %f\n", loss)
-
+            # printf("loss: %f\n", loss)
+            total_loss += loss
+            printf("total loss: %f\n", total_loss)
         # compute gradients and update
         # have almost identical calculations for postive and negative
         # except the sign of update
