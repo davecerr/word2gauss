@@ -768,27 +768,26 @@ cdef class GaussianEmbedding:
         # number processed, next time to log, logging interval
         # make it a list so we can modify it in the thread w/o a local var
 
-        for e in range(num_epochs):
-          LOGGER.info("Epoch %s" % (e))
-          processed = [0, report_interval, report_interval]
-          t1 = time.time()
-          lock = Lock()
-          def _worker():
-              while True:
-                  pairs = jobs.get()
-                  if pairs is None:
-                      # no more data
-                      break
-                  self.train_batch(pairs)
-                  with lock:
-                      processed[0] += 1
-                      if processed[1] and processed[0] >= processed[1]:
-                          t2 = time.time()
-                          LOGGER.info("Processed %s batches, elapsed time: %s"
-                                      % (processed[0], t2 - t1))
-                          processed[1] = processed[0] + processed[2]
-                          if reporter:
-                              reporter(self, processed[0])
+
+        processed = [0, report_interval, report_interval]
+        t1 = time.time()
+        lock = Lock()
+        def _worker():
+            while True:
+                pairs = jobs.get()
+                if pairs is None:
+                    # no more data
+                    break
+                self.train_batch(pairs)
+                with lock:
+                    processed[0] += 1
+                    if processed[1] and processed[0] >= processed[1]:
+                        t2 = time.time()
+                        LOGGER.info("Processed %s batches, elapsed time: %s"
+                                    % (processed[0], t2 - t1))
+                        processed[1] = processed[0] + processed[2]
+                        if reporter:
+                            reporter(self, processed[0])
 
         # start threads
         threads = []
@@ -799,8 +798,10 @@ cdef class GaussianEmbedding:
             threads.append(thread)
 
         # put data on the queue!
-        for batch_pairs in iter_pairs:
-            jobs.put(batch_pairs)
+        for e in range(num_epochs):
+            LOGGER.info("Epoch %s" % (e))
+            for batch_pairs in iter_pairs:
+                jobs.put(batch_pairs)
 
         # no more data, tell the threads to stop
         for i in range(len(threads)):
