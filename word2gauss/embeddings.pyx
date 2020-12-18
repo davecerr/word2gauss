@@ -1257,7 +1257,8 @@ cdef void train_batch(
         else:
             # printf("loss: %f\n", loss)
             total_loss += loss
-            printf("k: $f, total loss: %f\n", % (k,total_loss))
+            printf("k: $f\n", k)
+            printf("total loss: %f\n", total_loss)
         # compute gradients and update
         # have almost identical calculations for postive and negative
         # except the sign of update
