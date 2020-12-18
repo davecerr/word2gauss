@@ -1254,7 +1254,7 @@ cdef void train_batch(
             # loss for this sample is 0, nothing to update
             continue
         else:
-            printf("%f\n", loss)
+            printf("loss: %f\n", loss)
 
         # compute gradients and update
         # have almost identical calculations for postive and negative
