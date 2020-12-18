@@ -769,7 +769,7 @@ cdef class GaussianEmbedding:
         # make it a list so we can modify it in the thread w/o a local var
 
         for e in range(num_epochs):
-          printf(("EPOCH %f", e))
+          printf("EPOCH %f", e)
           processed = [0, report_interval, report_interval]
           t1 = time.time()
           lock = Lock()
