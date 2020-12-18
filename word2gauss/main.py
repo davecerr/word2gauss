@@ -67,7 +67,7 @@ def tokenizer(s):
     Whitespace tokenizer
     '''
     if MWE:
-        return s.lower().replace(".", "").replace(",", "").replace(":", "").replace("--"," ").replace("-"," ").replace(";", "").strip().split()
+        return s.lower().replace(".", "").replace(",", "").replace(":", "").replace("--"," ").replace("-"," ").replace(";", "").replace("(","").replace(")","").strip().split()
     else:
         return s.lower().replace(".", "").replace(",", "").replace(":", "").replace(";", "").strip().split()
 
