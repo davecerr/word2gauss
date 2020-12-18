@@ -37,6 +37,7 @@ sigma_max = 1.5
 
 # training properties
 num_workers = 8
+epochs = 10
 eta = 0.1 # learning rate : pass float for global learning rate (no min) or dict with keys mu,sigma,mu_min,sigma_min (local learning rate for each)
 Closs = 0.1 # regularization parameter in max-margin loss
 
@@ -176,9 +177,9 @@ embed = GaussianEmbedding(N=num_tokens, size=dimension,
 
 if MWE == 1:
     with open(filename, 'r') as corpus:
-        embed.train(iter_pairs(corpus, vocab), n_workers=num_workers, report_interval=report_schedule)
+        embed.train(iter_pairs(corpus, vocab), num_epochs=epochs, n_workers=num_workers, report_interval=report_schedule)
 else:
-    embed.train(iter_pairs(corpus, vocab), n_workers=num_workers, report_interval=report_schedule)
+    embed.train(iter_pairs(corpus, vocab), num_epochs=epochs, n_workers=num_workers, report_interval=report_schedule)
 
 
 
