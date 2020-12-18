@@ -17,6 +17,8 @@ from utils import cosine
 
 ######################### SETTINGS ############################################
 
+save_on = False
+
 # War & Peace (MWE = 0) vs Wikipedia (MWE = 1)
 MWE = 1
 
@@ -210,8 +212,9 @@ for idx in most_specific_indices:
     print(idx_2_entity[idx])
 
 # save the model for later
-print("SAVING MODEL")
-embed.save('model_file_location_{}'.format(dimension), vocab=vocab.id2word, full=True)
+if save_on:
+    print("SAVING MODEL")
+    embed.save('model_file_location_{}'.format(dimension), vocab=vocab.id2word, full=True)
 
 # print("LOADING MODEL")
 # test = GaussianEmbedding(N=num_tokens, size=dimension,
