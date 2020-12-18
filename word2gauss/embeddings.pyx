@@ -745,10 +745,11 @@ cdef class GaussianEmbedding:
         else:
             raise AttributeError
 
-    def train(self, iter_pairs, n_workers, report_interval, reporter=None):
+    def train(self, iter_pairs, num_epochs, n_workers, report_interval, reporter=None):
         '''
         Train the model from an iterator of many batches of pairs.
 
+        repeat for num_epochs
         use n_workers many workers
         report_interval: report progress every this many batches,
             if None then never report
@@ -766,25 +767,27 @@ cdef class GaussianEmbedding:
 
         # number processed, next time to log, logging interval
         # make it a list so we can modify it in the thread w/o a local var
-        processed = [0, report_interval, report_interval]
-        t1 = time.time()
-        lock = Lock()
-        def _worker():
-            while True:
-                pairs = jobs.get()
-                if pairs is None:
-                    # no more data
-                    break
-                self.train_batch(pairs)
-                with lock:
-                    processed[0] += 1
-                    if processed[1] and processed[0] >= processed[1]:
-                        t2 = time.time()
-                        LOGGER.info("Processed %s batches, elapsed time: %s"
-                                    % (processed[0], t2 - t1))
-                        processed[1] = processed[0] + processed[2]
-                        if reporter:
-                            reporter(self, processed[0])
+
+        for e in range(num_epochs):
+          processed = [0, report_interval, report_interval]
+          t1 = time.time()
+          lock = Lock()
+          def _worker():
+              while True:
+                  pairs = jobs.get()
+                  if pairs is None:
+                      # no more data
+                      break
+                  self.train_batch(pairs)
+                  with lock:
+                      processed[0] += 1
+                      if processed[1] and processed[0] >= processed[1]:
+                          t2 = time.time()
+                          LOGGER.info("Processed %s batches, elapsed time: %s"
+                                      % (processed[0], t2 - t1))
+                          processed[1] = processed[0] + processed[2]
+                          if reporter:
+                              reporter(self, processed[0])
 
         # start threads
         threads = []
