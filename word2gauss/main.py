@@ -37,14 +37,14 @@ sigma_max = 1.5
 
 # training properties
 num_workers = 8
-num_epochs = 10
+num_epochs = 100
 eta = 0.1 # learning rate : pass float for global learning rate (no min) or dict with keys mu,sigma,mu_min,sigma_min (local learning rate for each)
 Closs = 0.1 # regularization parameter in max-margin loss
 
 if MWE == 1:
-    report_schedule = 100
+    report_schedule = 1000
 else:
-    report_schedule = 100000
+    report_schedule = 1000000
 
 ###############################################################################
 
@@ -176,7 +176,7 @@ embed = GaussianEmbedding(N=num_tokens, size=dimension,
 # gzip file for example
 
 for e in range(num_epochs):
-    print("---------- EPOCH {} ----------".format(e))
+    print("---------- EPOCH {} ----------".format(e+1))
     if MWE == 1:
         with open(filename, 'r') as corpus:
             embed.train(iter_pairs(corpus, vocab), n_workers=num_workers, report_interval=report_schedule)
