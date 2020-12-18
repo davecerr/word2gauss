@@ -19,7 +19,7 @@ from utils import cosine
 
 save_on = False
 
-# War & Peace (MWE = 0) vs Wikipedia (MWE = 1)
+# War & Peace (MWE = 1) vs Wikipedia (MWE = 0)
 MWE = 1
 
 # embedding properties
@@ -66,7 +66,10 @@ def tokenizer(s):
     '''
     Whitespace tokenizer
     '''
-    return s.lower().replace(".", "").replace(",", "").replace(":", "").replace("--"," ").replace("-"," ").replace(";", "").strip().split()
+    if MWE:
+        return s.lower().replace(".", "").replace(",", "").replace(":", "").replace("--"," ").replace("-"," ").replace(";", "").strip().split()
+    else:
+        return s.lower().replace(".", "").replace(",", "").replace(":", "").replace(";", "").strip().split()
 
 def listToString(s):
     # initialize an empty string
