@@ -1287,7 +1287,7 @@ cdef void train_batch(
                                fac, eta, C, m, M, acc_grad_mu, acc_grad_sigma,
                                N, K)
 
-    # printf("%f\n", loss)
+    printf("%f\n", loss)
     free(work)
 
 cdef void _accumulate_update(
