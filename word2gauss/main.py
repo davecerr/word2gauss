@@ -66,7 +66,7 @@ def tokenizer(s):
     '''
     Whitespace tokenizer
     '''
-    return s.lower().replace(".", "").replace(",", "").replace(":", "").replace(";", "").strip().split()
+    return s.lower().replace(".", "").replace(",", "").replace(":", "").replace("--"," ").replace("-"," ").replace(";", "").strip().split()
 
 def listToString(s):
     # initialize an empty string
