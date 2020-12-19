@@ -192,6 +192,7 @@ for e in range(num_epochs):
     else:
         epoch_losses.append(embed.train(iter_pairs(corpus, vocab), n_workers=num_workers, report_interval=report_schedule))
 
+print("EPOCH LOSSES : {}".format(epoch_losses))
 
 
 print("---------- INITIAL EMBEDDING MEANS ----------")
