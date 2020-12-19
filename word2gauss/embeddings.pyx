@@ -820,16 +820,15 @@ cdef class GaussianEmbedding:
         '''
         cdef float x
         cdef bool v
+        v = self.verbose_flag
         with nogil:
-            v = self.verbose_flag
             x = train_batch(&pairs[0, 0], pairs.shape[0],
                         self.energy_func, self.gradient_func,
                         self.mu_ptr, self.sigma_ptr, self.covariance_type,
                         self.N, self.K,
                         &self.eta, self.Closs,
                         self.mu_max, self.sigma_min, self.sigma_max,
-                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, v
-                        )
+                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, v)
         return x
     def energy(self, i, j, func=None):
         '''
