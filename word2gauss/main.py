@@ -40,7 +40,7 @@ sigma_max = 1.5
 # training properties
 num_workers = 1
 num_epochs = 1
-verbose_flag = True
+verbose_flag = 1
 eta = 0.1 # learning rate : pass float for global learning rate (no min) or dict with keys mu,sigma,mu_min,sigma_min (local learning rate for each)
 Closs = 0.1 # regularization parameter in max-margin loss
 

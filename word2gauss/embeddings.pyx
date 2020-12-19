@@ -180,7 +180,7 @@ cdef class GaussianEmbedding:
     cdef DTYPE_t Closs
 
     # boolean for printing loss each batch
-    cdef bool verbose_flag
+    cdef int verbose_flag
 
     # energy and gradient functions
     cdef energy_t energy_func
@@ -201,7 +201,7 @@ cdef class GaussianEmbedding:
                       'sigma_std0': 1.0
                   },
                   eta=0.1, Closs=0.1,
-                  mu=None, sigma=None, verbose_flag=False):
+                  mu=None, sigma=None, verbose_flag=0):
         '''
         N = number of distributions (e.g. number of words)
         size = dimension of each Gaussian
@@ -819,11 +819,6 @@ cdef class GaussianEmbedding:
         Update the model with a single batch of pairs
         '''
         cdef float x
-        cdef bool verbose_flag
-        if self.verbose_flag == True:
-            verbose_flag = True
-        else:
-            verbose_flag = False
         with nogil:
             x = train_batch(&pairs[0, 0], pairs.shape[0],
                         self.energy_func, self.gradient_func,
@@ -831,7 +826,7 @@ cdef class GaussianEmbedding:
                         self.N, self.K,
                         &self.eta, self.Closs,
                         self.mu_max, self.sigma_min, self.sigma_max,
-                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, verbose_flag)
+                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, self.verbose_flag)
         return x
     def energy(self, i, j, func=None):
         '''
