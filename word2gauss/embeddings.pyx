@@ -49,7 +49,7 @@ from libc.stdio cimport printf
 from libcpp cimport bool
 
 
-import fastlogging
+import logging
 import time
 import json
 import numpy as np
@@ -64,7 +64,7 @@ import six
 
 from six.moves.queue import Queue
 
-LOGGER = fastlogging.getLogger()
+LOGGER = logging.getLogger()
 
 
 cdef extern from "stdint.h":
@@ -564,8 +564,8 @@ cdef class GaussianEmbedding:
                         # some lines have fewer features than expected
                         # this usually happens when we encode the null string ''
                         # into the model
-                        fastlogging.error('error with token {}'.format(line))
-                        fastlogging.error('expected line to have {} features, found {}; skipping'.format(
+                        logging.error('error with token {}'.format(line))
+                        logging.error('expected line to have {} features, found {}; skipping'.format(
                                         K, len(mus)))
                         continue
                     _mu[i, :] = [float(ele) for ele in mus]
@@ -573,8 +573,8 @@ cdef class GaussianEmbedding:
                 #try loading using pandas.read_csv because it's much faster
                 from pandas import read_csv
 
-                fastlogging.warn('loading model with pandas.read_csv instead of numpy.loadtxt')
-                fastlogging.warn('this is much faster but will result in slightly different values (within a tolerance)')
+                logging.warn('loading model with pandas.read_csv instead of numpy.loadtxt')
+                logging.warn('this is much faster but will result in slightly different values (within a tolerance)')
 
                 with closing(fin.extractfile('mu_context')) as f:
                     _mu[self.N:, :] = read_csv(f, sep="\s+", header=None, \
