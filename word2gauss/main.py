@@ -175,7 +175,7 @@ embed = GaussianEmbedding(N=num_tokens, size=dimension,
           init_params={'mu0': mu0,
               'sigma_mean0': sigma_mean0,
               'sigma_std0': sigma_std0},
-          eta=eta, Closs=Closs, epoch_loss=0.0,
+          eta=eta, Closs=Closs,
           iteration_verbose_flag=iteration_verbose_flag)
 
 

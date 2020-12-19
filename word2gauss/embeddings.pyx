@@ -183,7 +183,7 @@ cdef class GaussianEmbedding:
     cdef bool iteration_verbose_flag
 
     # total loss accumulated over epoch
-    cdef float epoch_loss
+    #cdef float epoch_loss
 
     # energy and gradient functions
     cdef energy_t energy_func
@@ -204,7 +204,7 @@ cdef class GaussianEmbedding:
                       'sigma_std0': 1.0
                   },
                   eta=0.1, Closs=0.1,
-                  mu=None, sigma=None, epoch_loss = 0.0,
+                  mu=None, sigma=None,
                   iteration_verbose_flag=False):
         '''
         N = number of distributions (e.g. number of words)
@@ -260,7 +260,7 @@ cdef class GaussianEmbedding:
         self.mu_max = mu_max
         self.Closs = Closs
         self.iteration_verbose_flag = iteration_verbose_flag
-        self.epoch_loss = epoch_loss
+        #self.epoch_loss = epoch_loss
 
         if isinstance(eta, dict):
             # NOTE: cython automatically converts from struct to dict
@@ -789,7 +789,7 @@ cdef class GaussianEmbedding:
                     # no more data
                     break
                 batch_loss = self.train_batch(pairs)
-                self.epoch_loss += batch_loss
+                #self.epoch_loss += batch_loss
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
@@ -820,7 +820,7 @@ cdef class GaussianEmbedding:
         for thread in threads:
             thread.join()
 
-        LOGGER.info("\n\n----------------------------------------\n\n \t\t Epoch Loss %f \n\n----------------------------------------\n\n" %self.epoch_loss)
+        #LOGGER.info("\n\n----------------------------------------\n\n \t\t Epoch Loss %f \n\n----------------------------------------\n\n" %self.epoch_loss)
 
     def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs):
         '''
