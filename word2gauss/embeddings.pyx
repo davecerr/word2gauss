@@ -820,7 +820,7 @@ cdef class GaussianEmbedding:
         for thread in threads:
             thread.join()
 
-        LOGGER.info("\n\n----------------------------------------\n\n \t\t Epoch Loss %f \n\n----------------------------------------\n\n" %epoch_loss)
+        LOGGER.info("\n\n----------------------------------------\n\n \t\t Epoch Loss %f \n\n----------------------------------------\n\n" %self.epoch_loss)
 
     def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs):
         '''
