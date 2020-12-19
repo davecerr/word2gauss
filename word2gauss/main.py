@@ -46,7 +46,7 @@ eta = 0.1 # learning rate : pass float for global learning rate (no min) or dict
 Closs = 0.1 # regularization parameter in max-margin loss
 
 if MWE == 1:
-    report_schedule = 1000
+    report_schedule = 100
 else:
     report_schedule = 1000000
 
