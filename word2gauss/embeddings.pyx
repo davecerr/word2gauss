@@ -179,7 +179,7 @@ cdef class GaussianEmbedding:
     # the Closs in max-margin function
     cdef DTYPE_t Closs
 
-    # boolean for printing loss each batch
+    # boolean for printing loss each batch or each iteration
     cdef bool iteration_verbose_flag
 
     # energy and gradient functions
@@ -201,7 +201,8 @@ cdef class GaussianEmbedding:
                       'sigma_std0': 1.0
                   },
                   eta=0.1, Closs=0.1,
-                  mu=None, sigma=None, iteration_verbose_flag=False):
+                  mu=None, sigma=None,
+                  iteration_verbose_flag=False):
         '''
         N = number of distributions (e.g. number of words)
         size = dimension of each Gaussian
