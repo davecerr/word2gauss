@@ -49,7 +49,7 @@ from libc.stdio cimport printf
 from libcpp cimport bool
 
 
-import logging
+import fastlogging
 import time
 import json
 import numpy as np
@@ -64,7 +64,7 @@ import six
 
 from six.moves.queue import Queue
 
-LOGGER = logging.getLogger()
+LOGGER = fastlogging.getLogger()
 
 
 cdef extern from "stdint.h":
