@@ -787,6 +787,7 @@ cdef class GaussianEmbedding:
                     # no more data
                     break
                 batch_loss = self.train_batch(pairs)
+                self.epoch_loss += batch_loss
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
