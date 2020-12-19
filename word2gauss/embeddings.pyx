@@ -178,6 +178,7 @@ cdef class GaussianEmbedding:
 
     # the Closs in max-margin function
     cdef DTYPE_t Closs
+    cdef float epoch_loss
 
     # boolean for printing loss each batch or each iteration
     cdef bool iteration_verbose_flag
@@ -201,7 +202,7 @@ cdef class GaussianEmbedding:
                       'sigma_std0': 1.0
                   },
                   eta=0.1, Closs=0.1,
-                  mu=None, sigma=None,
+                  mu=None, sigma=None, epoch_loss = 0.0,
                   iteration_verbose_flag=False):
         '''
         N = number of distributions (e.g. number of words)
@@ -256,6 +257,7 @@ cdef class GaussianEmbedding:
         self.sigma_max = sigma_max
         self.mu_max = mu_max
         self.Closs = Closs
+        self.epoch_loss = epoch_loss
         self.iteration_verbose_flag = iteration_verbose_flag
 
         if isinstance(eta, dict):
