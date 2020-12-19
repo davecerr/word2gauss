@@ -781,7 +781,7 @@ cdef class GaussianEmbedding:
         t1 = time.time()
         lock = Lock()
 
-        def _worker():
+        def _worker(epoch_loss):
             while True:
                 pairs = jobs.get()
                 if pairs is None:
@@ -802,7 +802,7 @@ cdef class GaussianEmbedding:
         # start threads
         threads = []
         for k in range(n_workers):
-            thread = Thread(target=_worker)
+            thread = Thread(target=_worker(epoch_loss))
             thread.daemon = True
             thread.start()
             threads.append(thread)
