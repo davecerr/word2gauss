@@ -777,7 +777,8 @@ cdef class GaussianEmbedding:
                 if pairs is None:
                     # no more data
                     break
-                self.train_batch(pairs)
+                batch_loss = self.train_batch(pairs)
+                LOGGER.info("Batch loss = %f" % batch_loss)
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
@@ -1255,15 +1256,15 @@ cdef void train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            with gil:
-                LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
-                        % (k, loss, total_loss))
+            #with gil:
+            #    LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
+            #            % (k, loss, total_loss))
             continue
         else:
             total_loss += loss
-            with gil:
-                LOGGER.info("k = %d, loss = %f, total loss = %f"
-                        % (k, loss, total_loss))
+            #with gil:
+            #    LOGGER.info("k = %d, loss = %f, total loss = %f"
+            #            % (k, loss, total_loss))
         # compute gradients and update
         # have almost identical calculations for postive and negative
         # except the sign of update
@@ -1301,6 +1302,7 @@ cdef void train_batch(
 
 
     free(work)
+    return total_loss
 
 cdef void _accumulate_update(
         size_t k, DTYPE_t* dmu, DTYPE_t* dsigma,
