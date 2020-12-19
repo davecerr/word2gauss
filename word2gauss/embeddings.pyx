@@ -258,9 +258,6 @@ cdef class GaussianEmbedding:
         self.Closs = Closs
         self.iteration_verbose_flag = iteration_verbose_flag
 
-        cdef float epoch_loss
-        self.epoch_loss = epoch_loss
-
         if isinstance(eta, dict):
             # NOTE: cython automatically converts from struct to dict
             self.eta = eta
@@ -767,7 +764,8 @@ cdef class GaussianEmbedding:
         '''
         # threadpool implementation of training
 
-        self.epoch_loss = 0
+        cdef float epoch_loss
+        epoch_loss = 0.0
 
         from threading import Thread, Lock
 
@@ -790,7 +788,7 @@ cdef class GaussianEmbedding:
                     # no more data
                     break
                 batch_loss = self.train_batch(pairs)
-                self.epoch_loss += batch_loss
+                epoch_loss += batch_loss
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
@@ -821,7 +819,7 @@ cdef class GaussianEmbedding:
         for thread in threads:
             thread.join()
 
-        LOGGER.info("\n\n----------------------------------------\n\n \t\t Epoch Loss %f \n\n----------------------------------------\n\n" %self.epoch_loss)
+        LOGGER.info("\n\n----------------------------------------\n\n \t\t Epoch Loss %f \n\n----------------------------------------\n\n" %epoch_loss)
 
     def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs):
         '''
