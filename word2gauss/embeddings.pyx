@@ -778,7 +778,7 @@ cdef class GaussianEmbedding:
 
         # reset the loss for this epoch
         self.epoch_loss = 0.0
-        
+
         processed = [0, report_interval, report_interval]
         t1 = time.time()
         lock = Lock()
@@ -821,6 +821,7 @@ cdef class GaussianEmbedding:
             thread.join()
 
         LOGGER.info("\n\nEpoch Loss %f" % self.epoch_loss)
+        return self.speoch_loss
 
     def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs):
         '''
