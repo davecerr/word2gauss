@@ -777,7 +777,7 @@ cdef class GaussianEmbedding:
                 if pairs is None:
                     # no more data
                     break
-                batch_loss = self.train_batch(pairs)
+                self.train_batch(pairs)
                 LOGGER.info("Batch loss = %f" % batch_loss)
                 with lock:
                     processed[0] += 1
@@ -814,7 +814,7 @@ cdef class GaussianEmbedding:
         Update the model with a single batch of pairs
         '''
         with nogil:
-            train_batch(&pairs[0, 0], pairs.shape[0],
+            batch_loss = train_batch(&pairs[0, 0], pairs.shape[0],
                         self.energy_func, self.gradient_func,
                         self.mu_ptr, self.sigma_ptr, self.covariance_type,
                         self.N, self.K,
@@ -1203,7 +1203,7 @@ cdef void ip_gradient(size_t i, size_t j, size_t center_index,
             dEdsigmai_ptr[k] = dEdsigma
             dEdsigmaj_ptr[k] = dEdsigma
 
-cdef void train_batch(
+cdef float train_batch(
         uint32_t*pairs, size_t Npairs,
         energy_t energy_func, gradient_t gradient_func,
         DTYPE_t*mu_ptr, DTYPE_t*sigma_ptr, uint32_t covariance_type,
