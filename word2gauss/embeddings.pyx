@@ -180,7 +180,7 @@ cdef class GaussianEmbedding:
     cdef DTYPE_t Closs
 
     # boolean for printing loss each batch
-    cdef bool verbose_flag
+    cdef boolean verbose_flag
 
     # energy and gradient functions
     cdef energy_t energy_func
