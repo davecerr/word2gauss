@@ -1214,7 +1214,7 @@ cdef float train_batch(
         DTYPE_t*mu_ptr, DTYPE_t*sigma_ptr, uint32_t covariance_type,
         size_t N, size_t K,
         LearningRates*eta, DTYPE_t Closs, DTYPE_t C, DTYPE_t m, DTYPE_t M,
-        DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma, flag
+        DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma, int flag
 )  nogil:
     '''
     Update the model on a batch of data
