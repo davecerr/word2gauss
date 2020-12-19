@@ -180,7 +180,7 @@ cdef class GaussianEmbedding:
     cdef DTYPE_t Closs
 
     # boolean for printing loss each batch
-    cdef int verbose_flag
+    cdef bool verbose_flag
 
     # energy and gradient functions
     cdef energy_t energy_func
@@ -201,7 +201,7 @@ cdef class GaussianEmbedding:
                       'sigma_std0': 1.0
                   },
                   eta=0.1, Closs=0.1,
-                  mu=None, sigma=None, verbose_flag=0):
+                  mu=None, sigma=None, verbose_flag=False):
         '''
         N = number of distributions (e.g. number of words)
         size = dimension of each Gaussian
@@ -1214,7 +1214,7 @@ cdef float train_batch(
         DTYPE_t*mu_ptr, DTYPE_t*sigma_ptr, uint32_t covariance_type,
         size_t N, size_t K,
         LearningRates*eta, DTYPE_t Closs, DTYPE_t C, DTYPE_t m, DTYPE_t M,
-        DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma, int flag
+        DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma, bool verbose_flag
 )  nogil:
     '''
     Update the model on a batch of data
@@ -1241,7 +1241,6 @@ cdef float train_batch(
     cdef DTYPE_t *dsigmai = work + 2 * K
     cdef DTYPE_t *dsigmaj = work + 3 * K
 
-    #cdef bool verbose = verbose_flag
     total_loss = 0.0
 
     for k in range(Npairs):
@@ -1262,17 +1261,17 @@ cdef float train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            #if verbose:
-            #    with gil:
-            #        LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
-            #            % (k, loss, total_loss))
+            if verbose_flag:
+                with gil:
+                    LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
+                        % (k, loss, total_loss))
             continue
         else:
             total_loss += loss
-            #if verbose:
-            #    with gil:
-            #        LOGGER.info("k = %d, loss = %f, total loss = %f"
-            #            % (k, loss, total_loss))
+            if verbose_flag:
+                with gil:
+                    LOGGER.info("k = %d, loss = %f, total loss = %f"
+                        % (k, loss, total_loss))
         # compute gradients and update
         # have almost identical calculations for postive and negative
         # except the sign of update
