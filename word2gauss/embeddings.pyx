@@ -1224,7 +1224,6 @@ cdef float train_batch(
     cdef float total_loss
     cdef DTYPE_t pos_energy, neg_energy
     cdef DTYPE_t fac
-    cdef bool verbose = verbose_flag
 
     # working space for the gradient
     # make one vector of length 4 * K, then partition it up for
@@ -1258,14 +1257,14 @@ cdef float train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            if verbose:
+            if verbose_flag:
                 with gil:
                     LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
                         % (k, loss, total_loss))
             continue
         else:
             total_loss += loss
-            if verbose:
+            if verbose_flag:
                 with gil:
                     LOGGER.info("k = %d, loss = %f, total loss = %f"
                         % (k, loss, total_loss))
