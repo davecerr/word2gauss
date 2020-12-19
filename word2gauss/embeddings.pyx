@@ -776,7 +776,9 @@ cdef class GaussianEmbedding:
         # number processed, next time to log, logging interval
         # make it a list so we can modify it in the thread w/o a local var
 
-
+        # reset the loss for this epoch
+        self.epoch_loss = 0.0
+        
         processed = [0, report_interval, report_interval]
         t1 = time.time()
         lock = Lock()
