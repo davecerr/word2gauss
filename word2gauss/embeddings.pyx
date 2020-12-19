@@ -1202,7 +1202,7 @@ cdef void ip_gradient(size_t i, size_t j, size_t center_index,
             dEdsigmai_ptr[k] = dEdsigma
             dEdsigmaj_ptr[k] = dEdsigma
 
-cdef float32_t train_batch(
+cpdef float32_t train_batch(
         uint32_t*pairs, size_t Npairs,
         energy_t energy_func, gradient_t gradient_func,
         DTYPE_t*mu_ptr, DTYPE_t*sigma_ptr, uint32_t covariance_type,
