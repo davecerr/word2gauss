@@ -201,7 +201,7 @@ cdef class GaussianEmbedding:
                       'sigma_std0': 1.0
                   },
                   eta=0.1, Closs=0.1,
-                  mu=None, sigma=None, verbose_flag=0):
+                  mu=None, sigma=None, verbose_flag=False):
         '''
         N = number of distributions (e.g. number of words)
         size = dimension of each Gaussian
