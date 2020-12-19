@@ -1255,7 +1255,8 @@ cdef void train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            LOGGER.info("k = %s, loss = 0, total loss = %s"
+            with gil:
+                LOGGER.info("k = %s, loss = 0, total loss = %s"
                         % (k, total_loss))
             continue
         else:
