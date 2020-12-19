@@ -809,7 +809,7 @@ cdef class GaussianEmbedding:
         for thread in threads:
             thread.join()
 
-    def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs), verbose_flag):
+    def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs, verbose_flag):
         '''
         Update the model with a single batch of pairs
         '''
