@@ -819,8 +819,7 @@ cdef class GaussianEmbedding:
         Update the model with a single batch of pairs
         '''
         cdef float x
-        cdef bool v
-        v = self.verbose_flag
+        cdef self.verbose_flag
         with nogil:
             x = train_batch(&pairs[0, 0], pairs.shape[0],
                         self.energy_func, self.gradient_func,
@@ -828,7 +827,7 @@ cdef class GaussianEmbedding:
                         self.N, self.K,
                         &self.eta, self.Closs,
                         self.mu_max, self.sigma_min, self.sigma_max,
-                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, v)
+                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, self.verbose_flag)
         return x
     def energy(self, i, j, func=None):
         '''
