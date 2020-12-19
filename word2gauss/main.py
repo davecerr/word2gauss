@@ -40,7 +40,7 @@ sigma_max = 1.5
 # training properties
 num_workers = 2
 num_epochs = 1
-verbose_flag = True
+iteration_verbose_flag = True
 eta = 0.1 # learning rate : pass float for global learning rate (no min) or dict with keys mu,sigma,mu_min,sigma_min (local learning rate for each)
 Closs = 0.1 # regularization parameter in max-margin loss
 
@@ -174,7 +174,7 @@ embed = GaussianEmbedding(N=num_tokens, size=dimension,
           init_params={'mu0': mu0,
               'sigma_mean0': sigma_mean0,
               'sigma_std0': sigma_std0},
-          eta=eta, Closs=Closs,verbose_flag=verbose_flag)
+          eta=eta, Closs=Closs,iteration_verbose_flag=iteration_verbose_flag)
 
 
 # open the corpus and train with 8 threads
