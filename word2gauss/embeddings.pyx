@@ -1202,14 +1202,14 @@ cdef void ip_gradient(size_t i, size_t j, size_t center_index,
             dEdsigmai_ptr[k] = dEdsigma
             dEdsigmaj_ptr[k] = dEdsigma
 
-cdef float32_t train_batch(
+cdef float train_batch(
         uint32_t*pairs, size_t Npairs,
         energy_t energy_func, gradient_t gradient_func,
         DTYPE_t*mu_ptr, DTYPE_t*sigma_ptr, uint32_t covariance_type,
         size_t N, size_t K,
         LearningRates*eta, DTYPE_t Closs, DTYPE_t C, DTYPE_t m, DTYPE_t M,
         DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma
-):
+)  nogil:
     '''
     Update the model on a batch of data
 
@@ -1218,8 +1218,8 @@ cdef float32_t train_batch(
     Npairs = number of training examples in this set
     '''
     cdef size_t k, posi, posj, negi, negj, pos_neg, i, j, center_index
-    cdef float32_t loss
-    cdef float32_t total_loss
+    cdef float loss
+    cdef float total_loss
     cdef DTYPE_t pos_energy, neg_energy
     cdef DTYPE_t fac
 
