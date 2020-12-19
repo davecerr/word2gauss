@@ -1256,11 +1256,10 @@ cdef void train_batch(
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
             with gil:
-                LOGGER.info("k = %s, loss = 0, total loss = %s"
-                        % (k, total_loss))
+                LOGGER.info("k = %d, loss = 0, actual loss = %d, total loss = %d"
+                        % (k, loss, total_loss))
             continue
         else:
-            # printf("loss: %f\n", loss)
             total_loss += loss
             with gil:
                 LOGGER.info("k = %d, loss = %d, total loss = %d"
