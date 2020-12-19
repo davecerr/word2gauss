@@ -774,8 +774,6 @@ cdef class GaussianEmbedding:
         # number processed, next time to log, logging interval
         # make it a list so we can modify it in the thread w/o a local var
 
-        cdef float epoch_loss
-        epoch_loss = 0
 
         processed = [0, report_interval, report_interval]
         t1 = time.time()
@@ -787,7 +785,6 @@ cdef class GaussianEmbedding:
                     # no more data
                     break
                 batch_loss = self.train_batch(pairs)
-                epoch_loss += batch_loss
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
@@ -818,7 +815,7 @@ cdef class GaussianEmbedding:
         for thread in threads:
             thread.join()
 
-        LOGGER.info("\n\n----------------------------------------\n\n \t\t Epoch Loss 2\n\n----------------------------------------\n\n" )
+        LOGGER.info("\n\nEpoch Loss 2" )
 
     def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs):
         '''
