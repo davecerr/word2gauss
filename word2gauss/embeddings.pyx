@@ -1235,8 +1235,8 @@ cdef void train_batch(
     cdef DTYPE_t *dsigmai = work + 2 * K
     cdef DTYPE_t *dsigmaj = work + 3 * K
 
-    total_loss = 0
-    
+    total_loss = 0.0
+
     for k in range(Npairs):
 
         # compute the loss
@@ -1255,11 +1255,14 @@ cdef void train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
+            LOGGER.info("k = %s, loss = 0, total loss = %s"
+                        % (k, total_loss))
             continue
         else:
             # printf("loss: %f\n", loss)
             total_loss += loss
-            printf("total loss: %f\n", total_loss)
+            LOGGER.info("k = %s, loss = %s, total loss = %s"
+                        % (k, loss, total_loss))
         # compute gradients and update
         # have almost identical calculations for postive and negative
         # except the sign of update
