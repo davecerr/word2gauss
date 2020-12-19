@@ -814,7 +814,7 @@ cdef class GaussianEmbedding:
         Update the model with a single batch of pairs
         '''
         with nogil:
-            batch_loss = train_batch(&pairs[0, 0], pairs.shape[0],
+            train_batch(&pairs[0, 0], pairs.shape[0],
                         self.energy_func, self.gradient_func,
                         self.mu_ptr, self.sigma_ptr, self.covariance_type,
                         self.N, self.K,
