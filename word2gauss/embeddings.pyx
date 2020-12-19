@@ -196,7 +196,7 @@ cdef class GaussianEmbedding:
                       'sigma_std0': 1.0
                   },
                   eta=0.1, Closs=0.1,
-                  mu=None, sigma=None):
+                  mu=None, sigma=None, verbose_flag=1):
         '''
         N = number of distributions (e.g. number of words)
         size = dimension of each Gaussian
@@ -250,6 +250,7 @@ cdef class GaussianEmbedding:
         self.sigma_max = sigma_max
         self.mu_max = mu_max
         self.Closs = Closs
+        self.verbose_flag = verbose_flag
 
         if isinstance(eta, dict):
             # NOTE: cython automatically converts from struct to dict
@@ -777,7 +778,7 @@ cdef class GaussianEmbedding:
                 if pairs is None:
                     # no more data
                     break
-                batch_loss = self.train_batch(pairs)
+                batch_loss = self.train_batch(pairs, verbose_flag)
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
@@ -808,7 +809,7 @@ cdef class GaussianEmbedding:
         for thread in threads:
             thread.join()
 
-    def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs):
+    def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs), verbose_flag):
         '''
         Update the model with a single batch of pairs
         '''
@@ -820,7 +821,7 @@ cdef class GaussianEmbedding:
                         self.N, self.K,
                         &self.eta, self.Closs,
                         self.mu_max, self.sigma_min, self.sigma_max,
-                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr
+                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, self.verbose_flag
                         )
         return x
     def energy(self, i, j, func=None):
@@ -1209,7 +1210,7 @@ cdef float train_batch(
         DTYPE_t*mu_ptr, DTYPE_t*sigma_ptr, uint32_t covariance_type,
         size_t N, size_t K,
         LearningRates*eta, DTYPE_t Closs, DTYPE_t C, DTYPE_t m, DTYPE_t M,
-        DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma
+        DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma, verbose_flag
 )  nogil:
     '''
     Update the model on a batch of data
@@ -1223,6 +1224,7 @@ cdef float train_batch(
     cdef float total_loss
     cdef DTYPE_t pos_energy, neg_energy
     cdef DTYPE_t fac
+    cdef bool verbose = verbose_flag
 
     # working space for the gradient
     # make one vector of length 4 * K, then partition it up for
@@ -1256,15 +1258,17 @@ cdef float train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            #with gil:
-            #    LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
-            #            % (k, loss, total_loss))
+            if verbose:
+                with gil:
+                    LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
+                        % (k, loss, total_loss))
             continue
         else:
             total_loss += loss
-            #with gil:
-            #    LOGGER.info("k = %d, loss = %f, total loss = %f"
-            #            % (k, loss, total_loss))
+            if verbose:
+                with gil:
+                    LOGGER.info("k = %d, loss = %f, total loss = %f"
+                        % (k, loss, total_loss))
         # compute gradients and update
         # have almost identical calculations for postive and negative
         # except the sign of update
