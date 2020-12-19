@@ -1242,6 +1242,7 @@ cdef float train_batch(
     cdef DTYPE_t *dsigmai = work + 2 * K
     cdef DTYPE_t *dsigmaj = work + 3 * K
 
+    cdef bool verbose = verbose_flag
     total_loss = 0.0
 
     for k in range(Npairs):
@@ -1262,14 +1263,14 @@ cdef float train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            if verbose_flag:
+            if verbose:
                 with gil:
                     LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
                         % (k, loss, total_loss))
             continue
         else:
             total_loss += loss
-            if verbose_flag:
+            if verbose:
                 with gil:
                     LOGGER.info("k = %d, loss = %f, total loss = %f"
                         % (k, loss, total_loss))
