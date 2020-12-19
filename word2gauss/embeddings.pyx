@@ -826,7 +826,7 @@ cdef class GaussianEmbedding:
                         self.N, self.K,
                         &self.eta, self.Closs,
                         self.mu_max, self.sigma_min, self.sigma_max,
-                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr
+                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, self.verbose_flag
                         )
         return x
     def energy(self, i, j, func=None):
