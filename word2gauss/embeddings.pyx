@@ -46,6 +46,8 @@ from libc.stdlib cimport malloc, free
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 from libc.stdio cimport printf
+from libcpp cimport bool
+
 
 import logging
 import time
