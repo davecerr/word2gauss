@@ -783,7 +783,7 @@ cdef class GaussianEmbedding:
                 if pairs is None:
                     # no more data
                     break
-                batch_loss = self.train_batch(pairs, self.verbose_flag)
+                batch_loss = self.train_batch(pairs)
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
@@ -814,7 +814,7 @@ cdef class GaussianEmbedding:
         for thread in threads:
             thread.join()
 
-    def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs, verbose_flag):
+    def train_batch(self, np.ndarray[uint32_t, ndim=2, mode='c'] pairs):
         '''
         Update the model with a single batch of pairs
         '''
@@ -1262,14 +1262,14 @@ cdef float train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            if self.verbose_flag:
+            if verbose_flag:
                 with gil:
                     LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
                         % (k, loss, total_loss))
             continue
         else:
             total_loss += loss
-            if self.verbose_flag:
+            if verbose_flag:
                 with gil:
                     LOGGER.info("k = %d, loss = %f, total loss = %f"
                         % (k, loss, total_loss))
