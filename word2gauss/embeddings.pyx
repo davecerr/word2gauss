@@ -826,7 +826,7 @@ cdef class GaussianEmbedding:
                         self.N, self.K,
                         &self.eta, self.Closs,
                         self.mu_max, self.sigma_min, self.sigma_max,
-                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr, self.verbose_flag
+                        self.acc_grad_mu_ptr, self.acc_grad_sigma_ptr
                         )
         return x
     def energy(self, i, j, func=None):
@@ -1215,7 +1215,7 @@ cdef float train_batch(
         DTYPE_t*mu_ptr, DTYPE_t*sigma_ptr, uint32_t covariance_type,
         size_t N, size_t K,
         LearningRates*eta, DTYPE_t Closs, DTYPE_t C, DTYPE_t m, DTYPE_t M,
-        DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma, verbose_flag
+        DTYPE_t*acc_grad_mu, DTYPE_t*acc_grad_sigma
 )  nogil:
     '''
     Update the model on a batch of data
@@ -1242,7 +1242,7 @@ cdef float train_batch(
     cdef DTYPE_t *dsigmai = work + 2 * K
     cdef DTYPE_t *dsigmaj = work + 3 * K
 
-    cdef bool verbose = verbose_flag
+    #cdef bool verbose = verbose_flag
     total_loss = 0.0
 
     for k in range(Npairs):
@@ -1263,17 +1263,17 @@ cdef float train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            if verbose:
-                with gil:
-                    LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
-                        % (k, loss, total_loss))
+            #if verbose:
+            #    with gil:
+            #        LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
+            #            % (k, loss, total_loss))
             continue
         else:
             total_loss += loss
-            if verbose:
-                with gil:
-                    LOGGER.info("k = %d, loss = %f, total loss = %f"
-                        % (k, loss, total_loss))
+            #if verbose:
+            #    with gil:
+            #        LOGGER.info("k = %d, loss = %f, total loss = %f"
+            #            % (k, loss, total_loss))
         # compute gradients and update
         # have almost identical calculations for postive and negative
         # except the sign of update
