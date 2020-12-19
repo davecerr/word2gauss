@@ -1262,14 +1262,14 @@ cdef float train_batch(
 
         if loss < 1.0e-14:
             # loss for this sample is 0, nothing to update
-            if verbose_flag:
+            if self.verbose_flag:
                 with gil:
                     LOGGER.info("k = %d, loss = 0, actual loss = %f, total loss = %f"
                         % (k, loss, total_loss))
             continue
         else:
             total_loss += loss
-            if verbose_flag:
+            if self.verbose_flag:
                 with gil:
                     LOGGER.info("k = %d, loss = %f, total loss = %f"
                         % (k, loss, total_loss))
