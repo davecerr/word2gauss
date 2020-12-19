@@ -1261,7 +1261,8 @@ cdef void train_batch(
         else:
             # printf("loss: %f\n", loss)
             total_loss += loss
-            LOGGER.info("k = %d, loss = %d, total loss = %d"
+            with gil:
+                LOGGER.info("k = %d, loss = %d, total loss = %d"
                         % (k, loss, total_loss))
         # compute gradients and update
         # have almost identical calculations for postive and negative
