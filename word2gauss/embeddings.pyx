@@ -182,6 +182,9 @@ cdef class GaussianEmbedding:
     # boolean for printing loss each batch or each iteration
     cdef bool iteration_verbose_flag
 
+    # total loss accumulated over epoch
+    cdef float epoch_loss
+
     # energy and gradient functions
     cdef energy_t energy_func
     cdef gradient_t gradient_func
@@ -201,7 +204,7 @@ cdef class GaussianEmbedding:
                       'sigma_std0': 1.0
                   },
                   eta=0.1, Closs=0.1,
-                  mu=None, sigma=None,
+                  mu=None, sigma=None, epoch_loss = 0.0,
                   iteration_verbose_flag=False):
         '''
         N = number of distributions (e.g. number of words)
@@ -257,6 +260,7 @@ cdef class GaussianEmbedding:
         self.mu_max = mu_max
         self.Closs = Closs
         self.iteration_verbose_flag = iteration_verbose_flag
+        self.epoch_loss = epoch_loss
 
         if isinstance(eta, dict):
             # NOTE: cython automatically converts from struct to dict
@@ -764,9 +768,6 @@ cdef class GaussianEmbedding:
         '''
         # threadpool implementation of training
 
-        cdef float epoch_loss
-        epoch_loss = 0.0
-
         from threading import Thread, Lock
 
         # each job is a batch of pairs from the iterator
@@ -781,14 +782,14 @@ cdef class GaussianEmbedding:
         t1 = time.time()
         lock = Lock()
 
-        def _worker(epoch_loss):
+        def _worker(cum_loss):
             while True:
                 pairs = jobs.get()
                 if pairs is None:
                     # no more data
                     break
                 batch_loss = self.train_batch(pairs)
-                epoch_loss += batch_loss
+                cum_loss += batch_loss
                 with lock:
                     processed[0] += 1
                     if processed[1] and processed[0] >= processed[1]:
@@ -802,7 +803,7 @@ cdef class GaussianEmbedding:
         # start threads
         threads = []
         for k in range(n_workers):
-            thread = Thread(target=_worker(epoch_loss))
+            thread = Thread(target=_worker(self.epoch_loss))
             thread.daemon = True
             thread.start()
             threads.append(thread)
