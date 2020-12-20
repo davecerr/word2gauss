@@ -20,7 +20,7 @@ from utils import cosine
 save_on = False
 
 # War & Peace (MWE = 1) vs Wikipedia (MWE = 0)
-MWE = 1
+MWE = 0
 
 # embedding properties
 dimension = 50
