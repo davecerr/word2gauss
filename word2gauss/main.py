@@ -63,7 +63,7 @@ def _open_file(filename):
     with gzip.open(filename) as infile:
         for _, line in enumerate(infile):
             print(line)
-            print(len(line))
+            print(len(list(line.split(","))))
             yield json.loads(line)
 
 def tokenizer(s):
