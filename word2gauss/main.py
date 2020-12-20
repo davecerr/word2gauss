@@ -66,9 +66,10 @@ def _open_file(filename):
             curr_len = len(list(line.split(",")))
             if curr_len > max_len:
                 max_len = curr_len
+                max_list = list(line.split(","))
             yield json.loads(line)
     print("Maximum list length = {}".format(max_len))
-
+    print("Maximum list = {}".format(max_list))
 def tokenizer(s):
     '''
     Whitespace tokenizer
