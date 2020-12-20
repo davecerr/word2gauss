@@ -60,11 +60,14 @@ else:
 
 
 def _open_file(filename):
+    max_len = 0
     with gzip.open(filename) as infile:
         for _, line in enumerate(infile):
-            print(line)
-            print(len(list(line.split(","))))
+            curr_len = len(list(line.split(",")))
+            if curr_len > max_len:
+                max_len = curr_len
             yield json.loads(line)
+    print("Maximum list length = {}".format(max_len))
 
 def tokenizer(s):
     '''
