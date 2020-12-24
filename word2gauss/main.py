@@ -20,7 +20,7 @@ from utils import cosine
 save_on = False
 
 # War & Peace (MWE = 1) vs Wikipedia (MWE = 0)
-MWE = 0
+MWE = 1
 
 # embedding properties
 dimension = 50
@@ -114,8 +114,11 @@ else:
         files = [os.path.join("data/page_dist_training_data/", f) for f in files]
         data_list = []
         for i, file in tqdm(enumerate(files)):
-            sentences = list(_open_file(file))
-            data_list += sentences
+            if MWE == 1:
+                sentences = list(_open_file(file))
+                data_list += sentences
+            else:
+                sentence
         # pickle_out = open("data_list.pkl","wb")
         # pkl.dump(data_list, pickle_out)
         # pickle_out.close()
