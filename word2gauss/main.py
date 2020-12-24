@@ -49,6 +49,7 @@ if MWE == 1:
     report_schedule = 1000
 else:
     report_schedule = 1000000
+    max_list_length = 6203
 
 ###############################################################################
 
@@ -63,12 +64,12 @@ def _open_file(filename):
     max_len = 0
     with gzip.open(filename) as infile:
         for _, line in enumerate(infile):
-            curr_len = len(list(line.split(",")))
-            if curr_len > max_len:
-                max_len = curr_len
+            #curr_len = len(list(line.split(",")))
+            #if curr_len > max_len:
+                #max_len = curr_len
                 #max_list = list(line.split(","))
             yield json.loads(line)
-    print("Maximum list length = {}".format(max_len))
+    #print("Maximum list length = {}".format(max_len))
     #print("Maximum list = {}".format(max_list))
 def tokenizer(s):
     '''
