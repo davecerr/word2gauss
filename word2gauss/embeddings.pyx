@@ -788,7 +788,7 @@ cdef class GaussianEmbedding:
                 if pairs is None:
                     # no more data
                     break
-                printf("pairs shape %tuple = " %pairs.shape)
+                cy print pairs
                 batch_loss = self.train_batch(pairs)
                 with lock:
                     processed[0] += 1
