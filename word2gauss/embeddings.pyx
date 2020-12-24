@@ -791,8 +791,8 @@ cdef class GaussianEmbedding:
                     # no more data
                     break
                 if i == 500:
-                    print pairs.shape
-                    print pairs
+                    for j in prange(pairs.shape):
+                    print pairs[j,:]
                 batch_loss = self.train_batch(pairs)
                 with lock:
                     processed[0] += 1
