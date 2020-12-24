@@ -790,7 +790,8 @@ cdef class GaussianEmbedding:
                 if pairs is None:
                     # no more data
                     break
-                if i == 23142:
+                if i == 2312:
+                    print pairs.shape
                     print pairs
                 batch_loss = self.train_batch(pairs)
                 with lock:
