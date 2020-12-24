@@ -785,14 +785,14 @@ cdef class GaussianEmbedding:
         def _worker():
             i=0
             while True:
+                i += 1
                 pairs = jobs.get()
                 if pairs is None:
                     # no more data
                     break
                 printf("new sample")
-                if i == 0:
+                if i == 23:
                     print pairs
-                i += 1
                 batch_loss = self.train_batch(pairs)
                 with lock:
                     processed[0] += 1
